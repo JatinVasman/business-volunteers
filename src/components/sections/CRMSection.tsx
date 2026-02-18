@@ -138,7 +138,7 @@ export default function CRMSection() {
       {/* ──── Pinned Horizontal Scroll Section ──── */}
       <div
         ref={pinContainerRef}
-        className="relative h-screen w-full flex flex-col md:flex-row overflow-hidden"
+        className="relative min-h-screen md:h-screen w-full flex flex-col md:flex-row overflow-hidden"
       >
         {/* Top divider */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green/10 to-transparent z-20" />
