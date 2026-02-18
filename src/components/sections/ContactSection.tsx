@@ -51,7 +51,6 @@ export default function ContactSection() {
                 <option value="social">Social Media Management</option>
                 <option value="web">Website Development</option>
                 <option value="branding">Logo &amp; Branding</option>
-                <option value="ads">Ads Management</option>
                 <option value="design">Graphic Design</option>
                 <option value="video">Video Editing</option>
                 <option value="other">Other</option>

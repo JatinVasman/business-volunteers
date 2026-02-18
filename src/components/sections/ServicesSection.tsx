@@ -66,8 +66,8 @@ const services = [
   },
   {
     icon: TrendingUp,
-    title: "Business Growth Consultation",
-    desc: "Strategic guidance to identify opportunities, optimize operations, and scale your business effectively.",
+    title: "CRM",
+    desc: "Streamline customer relationships with automated campaigns, loyalty programs, and real-time analytics dashboards.",
   },
   {
     icon: BookOpen,

@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { Mail, Phone, MapPin } from "lucide-react";
 
@@ -82,19 +81,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="border-t border-white/5 pt-8 flex items-center justify-center">
           <p className="text-gray-700 text-xs">
             © {new Date().getFullYear()} Business Volunteers. All rights
             reserved.
           </p>
-          <motion.button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            whileHover={{ y: -3 }}
-            data-cursor-hover
-            className="w-10 h-10 rounded-xl border border-white/10 flex items-center justify-center text-gray-600 hover:text-green hover:border-green/30 transition-all"
-          >
-            ↑
-          </motion.button>
         </div>
       </div>
     </footer>

@@ -39,9 +39,27 @@ SNAKE.forEach((imgIdx, pos) => {
 
 export default function SocialMediaSection() {
   const [selected, setSelected] = useState<number | null>(null);
-  const [revealCount, setRevealCount] = useState(0);
+  const [revealCount, setRevealCount] = useState(() => {
+    if (typeof window === "undefined") return 0;
+    return window.matchMedia("(max-width: 768px)").matches ? images.length : 0;
+  });
   const [isHovering, setIsHovering] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(max-width: 768px)").matches;
+  });
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  /* ── Detect mobile ── */
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const handler = (e: MediaQueryListEvent) => {
+      setIsMobile(e.matches);
+      if (e.matches) setRevealCount(images.length);
+    };
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   /* ── Hover → progressive reveal ── */
   useEffect(() => {
@@ -53,7 +71,7 @@ export default function SocialMediaSection() {
             clearInterval(timerRef.current);
           return Math.min(next, images.length);
         });
-      }, 280);
+      }, 150);
     }
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -88,7 +106,7 @@ export default function SocialMediaSection() {
           onMouseLeave={() => setIsHovering(false)}
         >
           {/* Grid */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
             {images.map((img, i) => {
               const pos = REVEAL_POS[i];
               const isRevealed = pos < revealCount;
@@ -97,7 +115,7 @@ export default function SocialMediaSection() {
                   <motion.div
                     className="w-full h-full rounded-xl overflow-hidden group relative cursor-pointer"
                     animate={
-                      isRevealed
+                      isRevealed || isMobile
                         ? { opacity: 1, scale: 1, filter: "blur(0px)" }
                         : { opacity: 0.12, scale: 0.92, filter: "blur(4px)" }
                     }
@@ -125,8 +143,8 @@ export default function SocialMediaSection() {
             })}
           </div>
 
-          {/* Hover prompt */}
-          {revealCount === 0 && (
+          {/* Hover prompt — desktop only */}
+          {!isMobile && revealCount === 0 && (
             <motion.div
               className="absolute inset-0 flex items-center justify-center pointer-events-none"
               style={{ zIndex: 30 }}

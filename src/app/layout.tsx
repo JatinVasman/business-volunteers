@@ -19,14 +19,53 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Business Volunteers — Creative Solutions That Move Brands Forward",
+  title:
+    "Top Advertising Agency in Delhi NCR for Creative Branding & Digital Marketing",
   description:
-    "Business Volunteers is a creative advertising and digital solutions agency helping brands grow through design, marketing, and strategy.",
+    "We help businesses grow with data-driven advertising, social media marketing, branding, and high-converting campaigns tailored for the Delhi market",
+  keywords: [
+    "advertising agency Delhi NCR",
+    "digital marketing agency Delhi",
+    "creative branding agency",
+    "social media marketing Delhi",
+    "best advertising agency in Delhi",
+    "brand strategy Delhi NCR",
+    "performance marketing",
+    "SEO services Delhi",
+    "PPC campaigns Delhi NCR",
+    "content marketing agency",
+    "influencer marketing Delhi",
+    "lead generation agency",
+    "business growth marketing",
+    "high-converting campaigns",
+    "data-driven advertising",
+    "creative agency Delhi",
+    "Business Volunteers",
+  ],
   openGraph: {
-    title: "Business Volunteers — Creative Agency",
+    title: "Top Advertising Agency in Delhi NCR | Business Volunteers",
     description:
-      "Creative solutions that move brands forward. Design, marketing, and digital strategy.",
+      "We help businesses grow with data-driven advertising, social media marketing, branding, and high-converting campaigns tailored for the Delhi market",
     type: "website",
+    images: [
+      {
+        url: "/logo.png",
+        width: 800,
+        height: 800,
+        alt: "Business Volunteers — Top Advertising Agency in Delhi NCR",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Top Advertising Agency in Delhi NCR | Business Volunteers",
+    description:
+      "We help businesses grow with data-driven advertising, social media marketing, branding, and high-converting campaigns tailored for the Delhi market",
+    images: ["/logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

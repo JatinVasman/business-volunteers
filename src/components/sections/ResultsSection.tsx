@@ -6,13 +6,13 @@ import SectionHeading from "@/components/ui/SectionHeading";
 
 const stats = [
   {
-    target: 200,
+    target: 1200,
     suffix: "+",
     label: "Clients Served",
     desc: "Businesses we've partnered with",
   },
   {
-    target: 150,
+    target: 180,
     suffix: "+",
     label: "Projects Completed",
     desc: "Delivered with excellence",

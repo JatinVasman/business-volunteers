@@ -73,7 +73,7 @@ export default function HeroSection() {
     <section
       ref={sectionRef}
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-24 pb-12"
     >
       {/* Large green radial glow */}
       <div className="hero-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,_rgba(0,224,90,0.12)_0%,_transparent_70%)] pointer-events-none" />
@@ -205,6 +205,20 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Header Video */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.2, duration: 1 }}
+        className="relative z-10 w-full max-w-6xl mx-auto px-6 mt-auto pt-12"
+      >
+        <div className="rounded-2xl overflow-hidden border border-white/10">
+          <video autoPlay loop muted playsInline className="w-full h-auto">
+            <source src="/headeer video.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </motion.div>
     </section>
   );
 }

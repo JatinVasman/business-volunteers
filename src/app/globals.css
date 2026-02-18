@@ -57,9 +57,9 @@ h6 {
   z-index: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(0, 224, 90, 0.4) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 224, 90, 0.4) 1px, transparent 1px);
-  background-size: 60px 60px;
+    linear-gradient(rgba(0, 224, 90, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 224, 90, 0.2) 1px, transparent 1px);
+  background-size: 40px 40px;
   mask-image: radial-gradient(
     circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
     black 0%,
@@ -79,9 +79,9 @@ h6 {
   z-index: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(0, 224, 90, 0.15) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 224, 90, 0.15) 1px, transparent 1px);
-  background-size: 60px 60px;
+    linear-gradient(rgba(0, 224, 90, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 224, 90, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
   mask-image: radial-gradient(
     circle 300px at var(--trail-x, 50%) var(--trail-y, 50%),
     black 0%,
