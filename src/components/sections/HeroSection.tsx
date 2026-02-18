@@ -1,0 +1,210 @@
+"use client";
+
+import { useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const floatingGeo = [
+  {
+    size: 80,
+    borderColor: "rgba(0,224,90,0.15)",
+    delay: 0,
+    x: "10%",
+    y: "20%",
+  },
+  {
+    size: 50,
+    borderColor: "rgba(0,224,90,0.1)",
+    delay: 1.5,
+    x: "80%",
+    y: "15%",
+  },
+  {
+    size: 60,
+    borderColor: "rgba(0,224,90,0.12)",
+    delay: 0.8,
+    x: "85%",
+    y: "70%",
+  },
+  { size: 40, borderColor: "rgba(0,224,90,0.08)", delay: 2, x: "5%", y: "75%" },
+  { size: 30, borderColor: "rgba(0,224,90,0.1)", delay: 1, x: "50%", y: "85%" },
+];
+
+export default function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headlineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Parallax on scroll — push hero content up slower
+      gsap.to(".hero-content", {
+        y: -100,
+        opacity: 0.3,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+
+      // Scale down the green glow on scroll
+      gsap.to(".hero-glow", {
+        scale: 0.5,
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "80% top",
+          scrub: 1,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      id="hero"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
+      {/* Large green radial glow */}
+      <div className="hero-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,_rgba(0,224,90,0.12)_0%,_transparent_70%)] pointer-events-none" />
+
+      {/* Floating geometric shapes */}
+      {floatingGeo.map((g, i) => (
+        <motion.div
+          key={i}
+          className="absolute border rounded-xl pointer-events-none"
+          style={{
+            left: g.x,
+            top: g.y,
+            width: g.size,
+            height: g.size,
+            borderColor: g.borderColor,
+          }}
+          animate={{
+            y: [0, -25, 12, 0],
+            rotate: [0, 90, 180, 360],
+            opacity: [0.3, 0.7, 0.3],
+          }}
+          transition={{
+            duration: 10 + i * 2,
+            repeat: Infinity,
+            delay: g.delay,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+
+      {/* Horizontal lines decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[20, 40, 60, 80].map((top) => (
+          <div
+            key={top}
+            className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-green/5 to-transparent"
+            style={{ top: `${top}%` }}
+          />
+        ))}
+      </div>
+
+      {/* Content */}
+      <div
+        className="hero-content relative z-10 max-w-6xl mx-auto px-6 text-center"
+        ref={headlineRef}
+      >
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          {/* Headline — Fooror-style staggered reveal */}
+          <h1 className="font-heading text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[0.95] tracking-tight mb-8">
+            <span className="block overflow-hidden">
+              {"Creative Solutions".split(" ").map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ y: "110%" }}
+                  animate={{ y: 0 }}
+                  transition={{
+                    delay: 0.4 + i * 0.12,
+                    duration: 0.9,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                  }}
+                  className="inline-block mr-[0.25em] text-white"
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </span>
+            <span className="block overflow-hidden">
+              {"That Move".split(" ").map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ y: "110%" }}
+                  animate={{ y: 0 }}
+                  transition={{
+                    delay: 0.7 + i * 0.12,
+                    duration: 0.9,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                  }}
+                  className="inline-block mr-[0.25em] text-white"
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </span>
+            <span className="block overflow-hidden">
+              {"Brands Forward".split(" ").map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ y: "110%" }}
+                  animate={{ y: 0 }}
+                  transition={{
+                    delay: 1 + i * 0.12,
+                    duration: 0.9,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                  }}
+                  className="inline-block mr-[0.25em] gradient-text"
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </span>
+          </h1>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.8, duration: 0.8 }}
+            className="flex flex-col sm:flex-row gap-5 justify-center"
+          >
+            <a
+              href="#social"
+              data-cursor-hover
+              className="group relative px-10 py-4 bg-green text-black rounded-xl text-base font-bold transition-all duration-500 hover:shadow-[0_0_50px_rgba(0,224,90,0.4)] hover:scale-105 overflow-hidden"
+            >
+              <span className="relative z-10">View Our Work</span>
+              <div className="absolute inset-0 bg-green-light opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </a>
+            <a
+              href="#contact"
+              data-cursor-hover
+              className="px-10 py-4 rounded-xl text-base font-bold text-white border border-white/10 hover:border-green/40 transition-all duration-500 hover:bg-green/5"
+            >
+              Start a Project
+            </a>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
