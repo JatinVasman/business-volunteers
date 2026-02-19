@@ -73,7 +73,7 @@ export default function HeroSection() {
     <section
       ref={sectionRef}
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-24 pb-12"
+      className="relative min-h-screen flex flex-col items-center justify-center gap-6 sm:gap-8 lg:gap-10 overflow-hidden pt-20 pb-8 sm:pt-24 sm:pb-12"
     >
       {/* Large green radial glow */}
       <div className="hero-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,_rgba(0,224,90,0.12)_0%,_transparent_70%)] pointer-events-none" />
@@ -126,7 +126,7 @@ export default function HeroSection() {
           transition={{ duration: 0.5 }}
         >
           {/* Headline — Fooror-style staggered reveal */}
-          <h1 className="font-heading text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[0.95] tracking-tight mb-8">
+          <h1 className="font-heading text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[0.95] tracking-tight mb-5 sm:mb-8">
             <span className="block overflow-hidden">
               {"Creative Solutions".split(" ").map((word, i) => (
                 <motion.span
@@ -211,7 +211,7 @@ export default function HeroSection() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 2.2, duration: 1 }}
-        className="relative z-10 w-full max-w-6xl mx-auto px-6 mt-auto pt-12"
+        className="relative z-10 w-full max-w-6xl mx-auto px-6"
       >
         <div className="rounded-2xl overflow-hidden border border-white/10">
           <video autoPlay loop muted playsInline className="w-full h-auto">

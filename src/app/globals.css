@@ -70,6 +70,10 @@ h6 {
     black 0%,
     transparent 100%
   );
+  will-change:
+    mask-image,
+    -webkit-mask-image;
+  transform: translateZ(0);
 }
 
 /* ===== CURSOR-REACTIVE GRID — FADING TRAIL ===== */
@@ -92,29 +96,37 @@ h6 {
     black 0%,
     transparent 100%
   );
+  will-change:
+    mask-image,
+    -webkit-mask-image;
+  transform: translateZ(0);
 }
 
 /* ===== CURSOR ===== */
 .custom-cursor {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 24px;
   height: 24px;
   border: 1.5px solid rgba(0, 224, 90, 0.5);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
+  will-change: transform;
 }
 
 .cursor-dot {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: #fff;
   pointer-events: none;
   z-index: 10000;
-  transform: translate(-50%, -50%);
+  will-change: transform;
 }
 
 a,
@@ -125,19 +137,17 @@ button,
 
 /* ===== GLASSMORPHISM ===== */
 .glass {
-  background: rgba(10, 10, 10, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(10, 10, 10, 0.85);
   border: 1px solid rgba(0, 224, 90, 0.1);
 }
 
 .glass-card {
-  background: rgba(17, 17, 17, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(17, 17, 17, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 16px;
-  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition:
+    border-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .glass-card:hover {
@@ -269,6 +279,7 @@ button,
 /* Section spacing */
 section {
   position: relative;
+  contain: layout style paint;
 }
 
 /* ===== SCROLLBAR ===== */
@@ -297,7 +308,9 @@ section {
   z-index: 1;
   pointer-events: none;
   opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 /* ===== MARQUEE ===== */
@@ -319,11 +332,12 @@ section {
 }
 
 .crm-card {
-  background: rgba(17, 17, 17, 0.8);
+  background: rgba(17, 17, 17, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition:
+    border-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .crm-card:hover {

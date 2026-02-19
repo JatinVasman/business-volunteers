@@ -49,6 +49,17 @@ export default function ContactSection() {
       }
 
       setStatus("success");
+
+      // Open WhatsApp with the same message pre-filled
+      const whatsappText = encodeURIComponent(
+        `Hi, I just submitted a contact form on your website.\n\n` +
+          `*Name:* ${form.name}\n` +
+          `*Email:* ${form.email}\n` +
+          `*Service:* ${form.service}\n\n` +
+          `*Message:*\n${form.message}`,
+      );
+      window.open(`https://wa.me/918586989832?text=${whatsappText}`, "_blank");
+
       setForm({ name: "", email: "", service: "", message: "" });
 
       // Reset status after 5 seconds

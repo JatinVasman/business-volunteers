@@ -39,24 +39,24 @@ SNAKE.forEach((imgIdx, pos) => {
 
 export default function SocialMediaSection() {
   const [selected, setSelected] = useState<number | null>(null);
-  const [revealCount, setRevealCount] = useState(() => {
-    if (typeof window === "undefined") return 0;
-    return window.matchMedia("(max-width: 768px)").matches ? images.length : 0;
-  });
+  const [revealCount, setRevealCount] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
-  const [isMobile, setIsMobile] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia("(max-width: 768px)").matches;
-  });
+  const [isMobile, setIsMobile] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const initializedRef = useRef(false);
 
-  /* ── Detect mobile ── */
+  /* ── Detect mobile (runs after hydration to avoid mismatch) ── */
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px)");
-    const handler = (e: MediaQueryListEvent) => {
-      setIsMobile(e.matches);
-      if (e.matches) setRevealCount(images.length);
+    const update = (matches: boolean) => {
+      setIsMobile(matches);
+      if (matches) setRevealCount(images.length);
     };
+    if (!initializedRef.current) {
+      initializedRef.current = true;
+      update(mq.matches);
+    }
+    const handler = (e: MediaQueryListEvent) => update(e.matches);
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);

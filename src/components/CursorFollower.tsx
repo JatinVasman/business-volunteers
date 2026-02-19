@@ -10,36 +10,56 @@ export default function CursorFollower() {
   const trailPos = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
+    // Skip on mobile/touch devices
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
     const cursor = cursorRef.current;
     const dot = dotRef.current;
     if (!cursor || !dot) return;
 
     const onMouseMove = (e: MouseEvent) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
-      // Dot follows instantly
-      dot.style.left = e.clientX + "px";
-      dot.style.top = e.clientY + "px";
+      // Dot follows instantly — use transform (GPU-accelerated, no layout)
+      dot.style.transform = `translate(${e.clientX - 3}px, ${e.clientY - 3}px)`;
 
       // Primary grid follows instantly
       document.documentElement.style.setProperty("--mouse-x", e.clientX + "px");
       document.documentElement.style.setProperty("--mouse-y", e.clientY + "px");
     };
 
-    const onMouseEnterInteractive = () => cursor.classList.add("hovering");
-    const onMouseLeaveInteractive = () => cursor.classList.remove("hovering");
+    // Use event delegation instead of MutationObserver — much cheaper
+    const onMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.closest("a") ||
+        target.closest("button") ||
+        target.closest("[data-cursor-hover]")
+      ) {
+        cursor.classList.add("hovering");
+      }
+    };
+    const onMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.closest("a") ||
+        target.closest("button") ||
+        target.closest("[data-cursor-hover]")
+      ) {
+        cursor.classList.remove("hovering");
+      }
+    };
 
     // Animation loop for smooth cursor circle + trailing grid
     let raf: number;
     const animate = () => {
-      // Circle follows with lag
+      // Circle follows with lag — use transform (GPU-accelerated)
       const dx = mousePos.current.x - cursorPos.current.x;
       const dy = mousePos.current.y - cursorPos.current.y;
       cursorPos.current.x += dx * 0.15;
       cursorPos.current.y += dy * 0.15;
-      cursor.style.left = cursorPos.current.x + "px";
-      cursor.style.top = cursorPos.current.y + "px";
+      cursor.style.transform = `translate(${cursorPos.current.x - 12}px, ${cursorPos.current.y - 12}px)`;
 
-      // Trail follows with more lag (creates fading effect)
+      // Trail follows with more lag
       const tdx = mousePos.current.x - trailPos.current.x;
       const tdy = mousePos.current.y - trailPos.current.y;
       trailPos.current.x += tdx * 0.05;
@@ -57,31 +77,15 @@ export default function CursorFollower() {
     };
     raf = requestAnimationFrame(animate);
 
-    window.addEventListener("mousemove", onMouseMove);
-
-    const interactives = document.querySelectorAll(
-      "a, button, [data-cursor-hover]",
-    );
-    interactives.forEach((el) => {
-      el.addEventListener("mouseenter", onMouseEnterInteractive);
-      el.addEventListener("mouseleave", onMouseLeaveInteractive);
-    });
-
-    const observer = new MutationObserver(() => {
-      const newInteractives = document.querySelectorAll(
-        "a, button, [data-cursor-hover]",
-      );
-      newInteractives.forEach((el) => {
-        el.addEventListener("mouseenter", onMouseEnterInteractive);
-        el.addEventListener("mouseleave", onMouseLeaveInteractive);
-      });
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    document.addEventListener("mouseover", onMouseOver, { passive: true });
+    document.addEventListener("mouseout", onMouseOut, { passive: true });
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", onMouseMove);
-      observer.disconnect();
+      document.removeEventListener("mouseover", onMouseOver);
+      document.removeEventListener("mouseout", onMouseOut);
     };
   }, []);
 
