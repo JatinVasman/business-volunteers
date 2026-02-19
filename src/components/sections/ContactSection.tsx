@@ -1,10 +1,66 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, FormEvent, ChangeEvent } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { Send } from "lucide-react";
+import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+
+type Status = "idle" | "sending" | "success" | "error";
 
 export default function ContactSection() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    service: "",
+    message: "",
+  });
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    if (!form.name || !form.email || !form.service || !form.message) {
+      setStatus("error");
+      setErrorMessage("Please fill in all fields.");
+      return;
+    }
+
+    setStatus("sending");
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to send message.");
+      }
+
+      setStatus("success");
+      setForm({ name: "", email: "", service: "", message: "" });
+
+      // Reset status after 5 seconds
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage(
+        err instanceof Error ? err.message : "Something went wrong.",
+      );
+    }
+  };
+
   return (
     <section id="contact" className="relative py-32 overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green/10 to-transparent" />
@@ -19,7 +75,7 @@ export default function ContactSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <form className="glass-card p-8 space-y-5">
+          <form onSubmit={handleSubmit} className="glass-card p-8 space-y-5">
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-xs text-gray-600 mb-2 uppercase tracking-wider">
@@ -27,6 +83,9 @@ export default function ContactSection() {
                 </label>
                 <input
                   type="text"
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
                   placeholder="Your name"
                   className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder:text-gray-700 focus:outline-none focus:border-green/40 focus:shadow-[0_0_15px_rgba(0,224,90,0.1)] transition-all"
                 />
@@ -37,6 +96,9 @@ export default function ContactSection() {
                 </label>
                 <input
                   type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
                   placeholder="your@email.com"
                   className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder:text-gray-700 focus:outline-none focus:border-green/40 focus:shadow-[0_0_15px_rgba(0,224,90,0.1)] transition-all"
                 />
@@ -46,14 +108,21 @@ export default function ContactSection() {
               <label className="block text-xs text-gray-600 mb-2 uppercase tracking-wider">
                 Service
               </label>
-              <select className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-400 text-sm focus:outline-none focus:border-green/40 transition-all appearance-none">
+              <select
+                name="service"
+                value={form.service}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-400 text-sm focus:outline-none focus:border-green/40 transition-all appearance-none"
+              >
                 <option value="">Select a service</option>
-                <option value="social">Social Media Management</option>
-                <option value="web">Website Development</option>
-                <option value="branding">Logo &amp; Branding</option>
-                <option value="design">Graphic Design</option>
-                <option value="video">Video Editing</option>
-                <option value="other">Other</option>
+                <option value="Social Media Management">
+                  Social Media Management
+                </option>
+                <option value="Website Development">Website Development</option>
+                <option value="Logo & Branding">Logo &amp; Branding</option>
+                <option value="Graphic Design">Graphic Design</option>
+                <option value="Video Editing">Video Editing</option>
+                <option value="Other">Other</option>
               </select>
             </div>
             <div>
@@ -61,19 +130,69 @@ export default function ContactSection() {
                 Message
               </label>
               <textarea
+                name="message"
+                value={form.message}
+                onChange={handleChange}
                 rows={4}
                 placeholder="Tell us about your project..."
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder:text-gray-700 focus:outline-none focus:border-green/40 focus:shadow-[0_0_15px_rgba(0,224,90,0.1)] transition-all resize-none"
               />
             </div>
+
+            {/* Submit Button */}
             <button
               type="submit"
+              disabled={status === "sending"}
               data-cursor-hover
-              className="w-full py-4 bg-green text-black rounded-xl font-bold text-base flex items-center justify-center gap-2 hover:shadow-[0_0_40px_rgba(0,224,90,0.4)] hover:scale-[1.02] transition-all duration-300"
+              className={`w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300 ${
+                status === "sending"
+                  ? "bg-green/60 text-black/60 cursor-not-allowed"
+                  : "bg-green text-black hover:shadow-[0_0_40px_rgba(0,224,90,0.4)] hover:scale-[1.02]"
+              }`}
             >
-              <Send size={18} />
-              Send Message
+              {status === "sending" ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send size={18} />
+                  Send Message
+                </>
+              )}
             </button>
+
+            {/* Status Messages */}
+            <AnimatePresence>
+              {status === "success" && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="flex items-center gap-3 p-4 bg-green/10 border border-green/20 rounded-xl"
+                >
+                  <CheckCircle size={20} className="text-green flex-shrink-0" />
+                  <p className="text-green text-sm">
+                    Message sent successfully! We&apos;ll get back to you soon.
+                  </p>
+                </motion.div>
+              )}
+              {status === "error" && errorMessage && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-xl"
+                >
+                  <AlertCircle
+                    size={20}
+                    className="text-red-400 flex-shrink-0"
+                  />
+                  <p className="text-red-400 text-sm">{errorMessage}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </form>
 
           {/* Social Icons */}
