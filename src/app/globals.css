@@ -148,6 +148,7 @@ button,
   transition:
     border-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     box-shadow 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
 }
 
 .glass-card:hover {
@@ -329,6 +330,7 @@ section {
 /* ===== CRM SECTION ===== */
 .crm-section {
   overflow: visible;
+  contain: none;
 }
 
 .crm-card {

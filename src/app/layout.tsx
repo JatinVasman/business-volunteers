@@ -20,6 +20,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://businessvolunteers.online"),
   title:
     "Top Advertising Agency in Delhi NCR for Creative Branding & Digital Marketing",
   description:

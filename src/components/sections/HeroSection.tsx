@@ -7,32 +7,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const floatingGeo = [
-  {
-    size: 80,
-    borderColor: "rgba(0,224,90,0.15)",
-    delay: 0,
-    x: "10%",
-    y: "20%",
-  },
-  {
-    size: 50,
-    borderColor: "rgba(0,224,90,0.1)",
-    delay: 1.5,
-    x: "80%",
-    y: "15%",
-  },
-  {
-    size: 60,
-    borderColor: "rgba(0,224,90,0.12)",
-    delay: 0.8,
-    x: "85%",
-    y: "70%",
-  },
-  { size: 40, borderColor: "rgba(0,224,90,0.08)", delay: 2, x: "5%", y: "75%" },
-  { size: 30, borderColor: "rgba(0,224,90,0.1)", delay: 1, x: "50%", y: "85%" },
-];
-
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
@@ -77,43 +51,6 @@ export default function HeroSection() {
     >
       {/* Large green radial glow */}
       <div className="hero-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,_rgba(0,224,90,0.12)_0%,_transparent_70%)] pointer-events-none" />
-
-      {/* Floating geometric shapes */}
-      {floatingGeo.map((g, i) => (
-        <motion.div
-          key={i}
-          className="absolute border rounded-xl pointer-events-none"
-          style={{
-            left: g.x,
-            top: g.y,
-            width: g.size,
-            height: g.size,
-            borderColor: g.borderColor,
-          }}
-          animate={{
-            y: [0, -25, 12, 0],
-            rotate: [0, 90, 180, 360],
-            opacity: [0.3, 0.7, 0.3],
-          }}
-          transition={{
-            duration: 10 + i * 2,
-            repeat: Infinity,
-            delay: g.delay,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-
-      {/* Horizontal lines decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[20, 40, 60, 80].map((top) => (
-          <div
-            key={top}
-            className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-green/5 to-transparent"
-            style={{ top: `${top}%` }}
-          />
-        ))}
-      </div>
 
       {/* Content */}
       <div
@@ -214,7 +151,14 @@ export default function HeroSection() {
         className="relative z-10 w-full max-w-6xl mx-auto px-6"
       >
         <div className="rounded-2xl overflow-hidden border border-white/10">
-          <video autoPlay loop muted playsInline className="w-full h-auto">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="none"
+            className="w-full h-auto"
+          >
             <source src="/headeer video.mp4" type="video/mp4" />
           </video>
         </div>

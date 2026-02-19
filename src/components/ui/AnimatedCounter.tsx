@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 interface Props {
   target: number;
@@ -8,11 +8,13 @@ interface Props {
 }
 
 export default function AnimatedCounter({ target, suffix = "" }: Props) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
 
   useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !started.current) {
@@ -23,9 +25,8 @@ export default function AnimatedCounter({ target, suffix = "" }: Props) {
           const animate = (now: number) => {
             const elapsed = now - startTime;
             const progress = Math.min(elapsed / duration, 1);
-            // ease out cubic
             const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.floor(eased * target));
+            el.textContent = `${Math.floor(eased * target)}${suffix}`;
             if (progress < 1) requestAnimationFrame(animate);
           };
           requestAnimationFrame(animate);
@@ -34,14 +35,13 @@ export default function AnimatedCounter({ target, suffix = "" }: Props) {
       { threshold: 0.5 },
     );
 
-    if (ref.current) observer.observe(ref.current);
+    observer.observe(el);
     return () => observer.disconnect();
-  }, [target]);
+  }, [target, suffix]);
 
   return (
-    <div ref={ref} className="font-heading text-5xl font-bold gradient-text">
-      {count}
-      {suffix}
-    </div>
+    <span ref={ref} className="font-heading text-5xl font-bold gradient-text">
+      0{suffix}
+    </span>
   );
 }

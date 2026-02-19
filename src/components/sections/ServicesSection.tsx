@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { motion } from "framer-motion";
 
 import SectionHeading from "@/components/ui/SectionHeading";
 import {
@@ -130,11 +129,9 @@ export default function ServicesSection() {
           {services.map((s) => {
             const Icon = s.icon;
             return (
-              <motion.div
+              <div
                 key={s.title}
-                whileHover={{ y: -10, scale: 1.03 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="service-card glass-card p-6 group"
+                className="service-card glass-card p-6 group transition-transform duration-300 hover:-translate-y-2.5 hover:scale-[1.03]"
                 data-cursor-hover
               >
                 <div className="w-12 h-12 rounded-xl bg-green/10 border border-green/10 flex items-center justify-center mb-4 group-hover:bg-green/20 group-hover:border-green/30 group-hover:shadow-[0_0_25px_rgba(0,224,90,0.15)] transition-all duration-500">
@@ -146,7 +143,7 @@ export default function ServicesSection() {
                 <p className="text-gray-500 text-sm leading-relaxed">
                   {s.desc}
                 </p>
-              </motion.div>
+              </div>
             );
           })}
         </div>

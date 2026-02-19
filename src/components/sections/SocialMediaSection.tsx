@@ -61,9 +61,12 @@ export default function SocialMediaSection() {
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  /* ── Hover → progressive reveal ── */
+  /* ── Hover → progressive reveal (triggers once, runs to completion) ── */
+  const revealStarted = useRef(false);
+
   useEffect(() => {
-    if (isHovering && revealCount < images.length) {
+    if (isHovering && !revealStarted.current && revealCount < images.length) {
+      revealStarted.current = true;
       timerRef.current = setInterval(() => {
         setRevealCount((c) => {
           const next = c + 1;
@@ -74,7 +77,9 @@ export default function SocialMediaSection() {
       }, 150);
     }
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      if (timerRef.current && revealCount >= images.length) {
+        clearInterval(timerRef.current);
+      }
     };
   }, [isHovering, revealCount]);
 

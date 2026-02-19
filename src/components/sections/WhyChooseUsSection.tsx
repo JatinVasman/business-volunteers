@@ -49,8 +49,7 @@ export default function WhyChooseUsSection() {
                   delay: i * 0.12,
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
-                whileHover={{ y: -8 }}
-                className="glass-card p-8 group"
+                className="glass-card p-8 group transition-transform duration-300 hover:-translate-y-2"
                 data-cursor-hover
               >
                 <div className="w-14 h-14 rounded-2xl bg-green/10 border border-green/20 flex items-center justify-center mb-5 group-hover:bg-green/20 group-hover:border-green/40 group-hover:shadow-[0_0_40px_rgba(0,224,90,0.15)] transition-all duration-500">
