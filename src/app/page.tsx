@@ -7,6 +7,8 @@ import SocialMediaSection from "@/components/sections/SocialMediaSection";
 import ProcessSection from "@/components/sections/ProcessSection";
 import ResultsSection from "@/components/sections/ResultsSection";
 import WhyChooseUsSection from "@/components/sections/WhyChooseUsSection";
+import TestimonialsSection from "@/components/sections/TestimonialsSection";
+import FAQSection from "@/components/sections/FAQSection";
 import ContactSection from "@/components/sections/ContactSection";
 
 export default function Home() {
@@ -21,6 +23,8 @@ export default function Home() {
       <ProcessSection />
       <ResultsSection />
       <WhyChooseUsSection />
+      <TestimonialsSection />
+      <FAQSection />
       <ContactSection />
     </>
   );

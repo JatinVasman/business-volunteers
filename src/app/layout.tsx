@@ -5,6 +5,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CursorFollower from "@/components/CursorFollower";
+import Preloader from "@/components/Preloader";
 import { Analytics } from "@vercel/analytics/next";
 
 const spaceGrotesk = Space_Grotesk({
@@ -83,12 +84,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <body className="antialiased noise-overlay">
-        <SmoothScroll>
-          <CursorFollower />
-          <Navbar />
-          <main className="relative z-[2]">{children}</main>
-          <Footer />
-        </SmoothScroll>
+        <Preloader>
+          <SmoothScroll>
+            <CursorFollower />
+            <Navbar />
+            <main className="relative z-[2]">{children}</main>
+            <Footer />
+          </SmoothScroll>
+        </Preloader>
         <Analytics />
       </body>
     </html>

@@ -1,21 +1,24 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
-  { label: "Social", href: "#social" },
-  { label: "Websites", href: "#portfolio" },
+  { label: "Portfolio", href: "#social" },
   { label: "CRM", href: "#crm" },
-  { label: "Process", href: "#process" },
+  { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -44,6 +47,10 @@ export default function Navbar() {
 
   const scrollTo = (href: string) => {
     setMobileOpen(false);
+    if (pathname !== "/") {
+      router.push("/" + href);
+      return;
+    }
     const el = document.querySelector(href);
     el?.scrollIntoView({ behavior: "smooth" });
   };
@@ -98,6 +105,24 @@ export default function Navbar() {
                 )}
               </button>
             ))}
+            <Link
+              href="/blog"
+              data-cursor-hover
+              className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                pathname.startsWith("/blog")
+                  ? "text-green"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              Blog
+              {pathname.startsWith("/blog") && (
+                <motion.div
+                  layoutId="nav-active"
+                  className="absolute bottom-0 left-2 right-2 h-[2px] bg-green rounded-full"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
+            </Link>
             <button
               onClick={() => scrollTo("#contact")}
               data-cursor-hover
@@ -139,10 +164,24 @@ export default function Navbar() {
                   {link.label}
                 </motion.button>
               ))}
-              <motion.button
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navLinks.length * 0.08 }}
+                className="w-full"
+              >
+                <Link
+                  href="/blog"
+                  onClick={() => setMobileOpen(false)}
+                  className="block w-full text-center py-4 text-xl font-medium text-gray-300 hover:text-green transition-colors rounded-xl hover:bg-white/5"
+                >
+                  Blog
+                </Link>
+              </motion.div>
+              <motion.button
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: (navLinks.length + 1) * 0.08 }}
                 onClick={() => scrollTo("#contact")}
                 className="mt-4 w-full py-4 bg-green text-black rounded-xl text-lg font-bold"
               >

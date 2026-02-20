@@ -309,7 +309,7 @@ export default function CRMSection() {
       </div>
 
       {/* ──── CRM Services — Below the scroll ──── */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-24 bg-black/50 backdrop-blur-sm border-t border-white/5">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 py-24 bg-black/90 border-t border-white/5">
         <motion.h3
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

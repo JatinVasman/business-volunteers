@@ -121,8 +121,8 @@ export default function SocialMediaSection() {
                     className="w-full h-full rounded-xl overflow-hidden group relative cursor-pointer"
                     animate={
                       isRevealed || isMobile
-                        ? { opacity: 1, scale: 1, filter: "blur(0px)" }
-                        : { opacity: 0.12, scale: 0.92, filter: "blur(4px)" }
+                        ? { opacity: 1, scale: 1 }
+                        : { opacity: 0.12, scale: 0.92 }
                     }
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     onClick={() => isRevealed && setSelected(i)}

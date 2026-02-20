@@ -1,16 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 const footerLinks = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
-  { label: "Social", href: "#social" },
-  { label: "Websites", href: "#portfolio" },
+  { label: "Portfolio", href: "#social" },
   { label: "CRM", href: "#crm" },
-  { label: "Process", href: "#process" },
+  { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
+  { label: "Blog", href: "/blog" },
+  { label: "FAQs", href: "/faq" },
 ];
 
 export default function Footer() {
@@ -46,13 +48,23 @@ export default function Footer() {
             <ul className="space-y-3">
               {footerLinks.map((link) => (
                 <li key={link.href}>
-                  <a
-                    href={link.href}
-                    data-cursor-hover
-                    className="text-gray-600 hover:text-green transition-colors text-sm"
-                  >
-                    {link.label}
-                  </a>
+                  {link.href.startsWith("/") ? (
+                    <Link
+                      href={link.href}
+                      data-cursor-hover
+                      className="text-gray-600 hover:text-green transition-colors text-sm"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      data-cursor-hover
+                      className="text-gray-600 hover:text-green transition-colors text-sm"
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
