@@ -35,6 +35,35 @@ export default function BlogPostPage() {
 
   return (
     <section className="relative min-h-screen py-32 overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: post.title,
+            description: post.excerpt,
+            datePublished: post.date,
+            author: {
+              "@type": "Organization",
+              name: "Business Volunteers",
+              url: "https://businessvolunteers.online",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "Business Volunteers",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://businessvolunteers.online/logo-dark.png",
+              },
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `https://businessvolunteers.online/blog/${post.slug}`,
+            },
+          }),
+        }}
+      />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(0,224,90,0.04),_transparent_60%)]" />
 
       <div className="max-w-3xl mx-auto px-6 relative z-10">

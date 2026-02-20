@@ -10,6 +10,12 @@ export default function Preloader({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Give the browser time to parse, hydrate, and settle
     // Uses requestIdleCallback where available for smarter timing
+    // Force scroll to top
+    window.scrollTo(0, 0);
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
     const finish = () => {
       setLoading(false);
       // Small delay so exit animation plays before content renders fully

@@ -35,7 +35,7 @@ export default function AboutSection() {
           className="relative w-full rounded-2xl overflow-hidden border border-white/10 group mb-16"
         >
           <Image
-            src="/about.png"
+            src="/about.webp"
             alt="Business Volunteers"
             width={1200}
             height={675}

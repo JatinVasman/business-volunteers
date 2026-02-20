@@ -11,25 +11,25 @@ gsap.registerPlugin(ScrollTrigger);
 
 const crmCards = [
   {
-    image: "/CRM/1.jpg",
+    image: "/CRM/1.webp",
     title: "Collect Customer Data",
     desc: "Gather customer details, birthdays, anniversaries & preferences at every touchpoint.",
     accent: "#10b981",
   },
   {
-    image: "/CRM/2.jpg",
+    image: "/CRM/2.webp",
     title: "Segment & Analyze",
     desc: "Automatically categorize customers by behavior, visit frequency & spending patterns.",
     accent: "#3b82f6",
   },
   {
-    image: "/CRM/3.jpg",
+    image: "/CRM/3.webp",
     title: "Automate Campaigns",
     desc: "Trigger personalized messages, offers & follow-ups based on customer activity & events.",
     accent: "#f59e0b",
   },
   {
-    image: "/CRM/4.jpg",
+    image: "/CRM/4.webp",
     title: "Track & Optimize",
     desc: "Monitor campaign performance, redemption rates & ROI with real-time analytics dashboards.",
     accent: "#a855f7",

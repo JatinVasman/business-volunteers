@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -42,10 +43,17 @@ export default function SocialMediaSection() {
   const [revealCount, setRevealCount] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const initializedRef = useRef(false);
 
-  /* ── Detect mobile (runs after hydration to avoid mismatch) ── */
+  /* ── Client mount (for portal) ── */
+  useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
+
+  /* ── Detect mobile ── */
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px)");
     const update = (matches: boolean) => {
@@ -61,7 +69,7 @@ export default function SocialMediaSection() {
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  /* ── Hover → progressive reveal (triggers once, runs to completion) ── */
+  /* ── Hover → progressive reveal ── */
   const revealStarted = useRef(false);
 
   useEffect(() => {
@@ -74,7 +82,7 @@ export default function SocialMediaSection() {
             clearInterval(timerRef.current);
           return Math.min(next, images.length);
         });
-      }, 150);
+      }, 80);
     }
     return () => {
       if (timerRef.current && revealCount >= images.length) {
@@ -82,6 +90,92 @@ export default function SocialMediaSection() {
       }
     };
   }, [isHovering, revealCount]);
+
+  /* ── Lock ALL scrolling when lightbox is open ── */
+  useEffect(() => {
+    if (selected !== null) {
+      document.documentElement.classList.add("lenis-stopped");
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.classList.remove("lenis-stopped");
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    }
+    return () => {
+      document.documentElement.classList.remove("lenis-stopped");
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, [selected]);
+
+  /* ── Lightbox via portal (escapes section CSS contain) ── */
+  const lightbox =
+    mounted && selected !== null
+      ? createPortal(
+          <AnimatePresence>
+            <motion.div
+              key="lightbox-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black flex items-center justify-center p-4"
+              style={{ zIndex: 99999 }}
+              onClick={() => setSelected(null)}
+              onWheel={(e) => e.stopPropagation()}
+            >
+              <motion.div
+                initial={{ scale: 0.85, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.85, opacity: 0 }}
+                transition={{ type: "spring", damping: 25 }}
+                className="relative max-w-4xl max-h-[90vh]"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Image
+                  src={images[selected].src}
+                  alt={images[selected].alt}
+                  width={800}
+                  height={1000}
+                  className="max-h-[85vh] w-auto rounded-2xl"
+                />
+                <button
+                  onClick={() => setSelected(null)}
+                  className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                >
+                  <X size={20} />
+                </button>
+                <div className="flex justify-center mt-4 gap-2">
+                  <button
+                    onClick={() =>
+                      setSelected(
+                        selected > 0 ? selected - 1 : images.length - 1,
+                      )
+                    }
+                    className="px-4 py-2 rounded-lg glass text-sm text-gray-300 hover:text-green transition-colors"
+                  >
+                    ← Prev
+                  </button>
+                  <span className="px-4 py-2 text-sm text-gray-600">
+                    {selected + 1} / {images.length}
+                  </span>
+                  <button
+                    onClick={() =>
+                      setSelected(
+                        selected < images.length - 1 ? selected + 1 : 0,
+                      )
+                    }
+                    className="px-4 py-2 rounded-lg glass text-sm text-gray-300 hover:text-green transition-colors"
+                  >
+                    Next →
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>,
+          document.body,
+        )
+      : null;
 
   return (
     <section id="social" className="relative py-32 overflow-hidden">
@@ -166,62 +260,7 @@ export default function SocialMediaSection() {
         </div>
       </div>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {selected !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4"
-            onClick={() => setSelected(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ type: "spring", damping: 25 }}
-              className="relative max-w-4xl max-h-[90vh]"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Image
-                src={images[selected].src}
-                alt={images[selected].alt}
-                width={800}
-                height={1000}
-                className="max-h-[85vh] w-auto rounded-2xl glow"
-              />
-              <button
-                onClick={() => setSelected(null)}
-                className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
-              >
-                <X size={20} />
-              </button>
-              <div className="flex justify-center mt-4 gap-2">
-                <button
-                  onClick={() =>
-                    setSelected(selected > 0 ? selected - 1 : images.length - 1)
-                  }
-                  className="px-4 py-2 rounded-lg glass text-sm text-gray-300 hover:text-green transition-colors"
-                >
-                  ← Prev
-                </button>
-                <span className="px-4 py-2 text-sm text-gray-600">
-                  {selected + 1} / {images.length}
-                </span>
-                <button
-                  onClick={() =>
-                    setSelected(selected < images.length - 1 ? selected + 1 : 0)
-                  }
-                  className="px-4 py-2 rounded-lg glass text-sm text-gray-300 hover:text-green transition-colors"
-                >
-                  Next →
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {lightbox}
     </section>
   );
 }

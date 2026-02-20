@@ -20,31 +20,31 @@ const projects: Project[] = [
   {
     name: "Decor by Sonya Mehta",
     category: "Interior Design",
-    image: "/Website/Sonya-decor.png",
+    image: "/Website/Sonya-decor.webp",
     link: "https://decorembysonyamehta.com/",
   },
   {
     name: "Vasoo Bamboo Arts",
     category: "Crafts & Artisan",
-    image: "/Website/vasoobamboo.png",
+    image: "/Website/vasoobamboo.webp",
     link: "https://www.vasoobambooarts.in/",
   },
   {
     name: "Vihaara",
     category: "Real Estate",
-    image: "/Website/vihara.png",
+    image: "/Website/vihara.webp",
     link: "https://vihaara.org/",
   },
   {
     name: "Layers Clothing",
     category: "Clothing",
-    image: "/Website/layers.png",
+    image: "/Website/layers.webp",
     link: "https://www.layersclothing.in/",
   },
   {
     name: "Daily Mob Design",
     category: "Advertising Agency",
-    image: "/Website/dailymobdesign.png",
+    image: "/Website/dailymobdesign.webp",
     link: "https://dailymobdesign.com/",
   },
 ];

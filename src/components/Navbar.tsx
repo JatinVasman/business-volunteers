@@ -72,7 +72,7 @@ export default function Navbar() {
             data-cursor-hover
           >
             <Image
-              src="/logo.png"
+              src="/logo.webp"
               alt="Business Volunteers"
               width={40}
               height={40}
