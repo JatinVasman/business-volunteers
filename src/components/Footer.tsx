@@ -19,7 +19,7 @@ export default function Footer() {
   return (
     <footer className="relative border-t border-white/5 bg-black-light">
       <div className="max-w-7xl mx-auto px-6 pt-20 pb-10">
-        <div className="grid md:grid-cols-3 gap-12 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
@@ -89,6 +89,30 @@ export default function Footer() {
                 <span>Noida sec 62, Noida 201309</span>
               </div>
             </div>
+          </div>
+
+          {/* Location Map */}
+          <div>
+            <h4 className="font-heading text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
+              Get Directions
+            </h4>
+            <a
+              href="https://maps.app.goo.gl/EpeFsJs9NPm7aRFG9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block overflow-hidden rounded-lg border border-white/10 hover:border-green/30 transition-colors"
+            >
+              <iframe
+                src="https://www.google.com/maps?q=https://maps.app.goo.gl/EpeFsJs9NPm7aRFG9&output=embed"
+                width="100%"
+                height="200"
+                style={{ border: 0, pointerEvents: "none" }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Business Volunteers Location"
+              />
+            </a>
           </div>
         </div>
 
