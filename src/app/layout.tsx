@@ -22,8 +22,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://businessvolunteers.online"),
-  title:
-    "Top Advertising Agency in India for Creative Branding & Digital Marketing",
+  title: "Digital Marketing Agency India | Business Volunteers",
   description:
     "We help businesses grow with data-driven advertising, social media marketing, branding, and high-converting campaigns tailored for the Delhi market",
   keywords: [
@@ -50,7 +49,7 @@ export const metadata: Metadata = {
     apple: "/logo-dark.png",
   },
   openGraph: {
-    title: "Top Advertising Agency in India | Business Volunteers",
+    title: "Digital Marketing Agency India | Business Volunteers",
     description:
       "We help businesses grow with data-driven advertising, social media marketing, branding, and high-converting campaigns tailored for the Delhi market",
     type: "website",
@@ -65,7 +64,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Top Advertising Agency in India | Business Volunteers",
+    title: "Digital Marketing Agency India | Business Volunteers",
     description:
       "We help businesses grow with data-driven advertising, social media marketing, branding, and high-converting campaigns tailored for the Delhi market",
     images: ["/logo-dark.png"],

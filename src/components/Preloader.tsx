@@ -56,9 +56,9 @@ export default function Preloader({ children }: { children: React.ReactNode }) {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="relative z-10 text-center"
             >
-              <h1 className="font-heading text-3xl sm:text-4xl font-bold text-white tracking-tight">
+              <div className="font-heading text-3xl sm:text-4xl font-bold text-white tracking-tight">
                 Business <span className="gradient-text">Volunteers</span>
-              </h1>
+              </div>
             </motion.div>
 
             {/* Loading bar */}
