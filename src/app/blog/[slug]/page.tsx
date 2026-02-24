@@ -38,20 +38,12 @@ export async function generateMetadata({
       type: "article",
       publishedTime: post.date,
       authors: ["Business Volunteers"],
-      images: [
-        {
-          url: "/logo-dark.png",
-          width: 800,
-          height: 800,
-          alt: post.title,
-        },
-      ],
+      siteName: "Business Volunteers",
     },
     twitter: {
       card: "summary_large_image",
       title: `${post.title} | Business Volunteers`,
       description: post.excerpt,
-      images: ["/logo-dark.png"],
     },
   };
 }

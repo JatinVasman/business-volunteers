@@ -52,22 +52,15 @@ export const metadata: Metadata = {
     title: "Digital Marketing Agency India | Business Volunteers",
     description:
       "We help businesses grow with data-driven advertising, social media marketing, branding, and high-converting campaigns tailored for the Delhi market",
+    url: "https://businessvolunteers.online",
     type: "website",
-    images: [
-      {
-        url: "/logo-dark.png",
-        width: 800,
-        height: 800,
-        alt: "Business Volunteers — Top Advertising Agency in India",
-      },
-    ],
+    siteName: "Business Volunteers",
   },
   twitter: {
     card: "summary_large_image",
     title: "Digital Marketing Agency India | Business Volunteers",
     description:
       "We help businesses grow with data-driven advertising, social media marketing, branding, and high-converting campaigns tailored for the Delhi market",
-    images: ["/logo-dark.png"],
   },
   alternates: {
     canonical: "https://businessvolunteers.online",
@@ -86,6 +79,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <head>
+        {/* Preconnect to critical third-party origins */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link rel="dns-prefetch" href="https://www.google.com" />
+        <link rel="dns-prefetch" href="https://maps.googleapis.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

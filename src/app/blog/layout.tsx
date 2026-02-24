@@ -13,21 +13,13 @@ export const metadata: Metadata = {
       "Read practical digital marketing tips, social media strategies, SEO guides, and business growth insights from the Business Volunteers team.",
     url: "https://businessvolunteers.online/blog",
     type: "website",
-    images: [
-      {
-        url: "/logo-dark.png",
-        width: 800,
-        height: 800,
-        alt: "Business Volunteers Blog",
-      },
-    ],
+    siteName: "Business Volunteers",
   },
   twitter: {
     card: "summary_large_image",
     title: "Blog — Digital Marketing Insights & Tips | Business Volunteers",
     description:
       "Read practical digital marketing tips, social media strategies, SEO guides, and business growth insights from the Business Volunteers team.",
-    images: ["/logo-dark.png"],
   },
 };
 

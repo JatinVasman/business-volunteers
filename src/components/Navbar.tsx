@@ -76,6 +76,7 @@ export default function Navbar() {
               alt="Business Volunteers"
               width={40}
               height={40}
+              priority
               className="rounded-lg transition-transform group-hover:scale-110 brightness-0 invert"
             />
             <span className="font-heading font-bold text-lg hidden sm:block">
