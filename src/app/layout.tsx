@@ -70,6 +70,9 @@ export const metadata: Metadata = {
       "We help businesses grow with data-driven advertising, social media marketing, branding, and high-converting campaigns tailored for the Delhi market",
     images: ["/logo-dark.png"],
   },
+  alternates: {
+    canonical: "https://businessvolunteers.online",
+  },
   robots: {
     index: true,
     follow: true,
@@ -186,6 +189,107 @@ export default function RootLayout({
                   url: "https://businessvolunteers.online/faq",
                 },
               ],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ProfessionalService",
+              name: "Business Volunteers",
+              url: "https://businessvolunteers.online",
+              logo: "https://businessvolunteers.online/logo-dark.png",
+              image: "https://businessvolunteers.online/logo-dark.png",
+              description:
+                "Business Volunteers is a digital marketing agency in India helping businesses grow with data-driven advertising, social media marketing, branding, and high-converting campaigns.",
+              telephone: "+91-8586989832",
+              email: "contact.businessvolunteers@gmail.com",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Noida Sec 62",
+                addressLocality: "Noida",
+                addressRegion: "Uttar Pradesh",
+                postalCode: "201309",
+                addressCountry: "IN",
+              },
+              geo: {
+                "@type": "GeoCoordinates",
+                latitude: 28.6273928,
+                longitude: 77.3654327,
+              },
+              priceRange: "$$",
+              openingHoursSpecification: {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday",
+                ],
+                opens: "09:00",
+                closes: "18:00",
+              },
+              sameAs: [
+                "https://www.instagram.com/businessvolunteers",
+                "https://www.facebook.com/businessvolunteers",
+                "https://www.linkedin.com/company/businessvolunteers",
+                "https://www.youtube.com/@businessvolunteers",
+              ],
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "Digital Marketing Services",
+                itemListElement: [
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Website Development",
+                      description:
+                        "Professional, mobile-friendly website design and development that builds trust and converts visitors into customers.",
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Digital Marketing",
+                      description:
+                        "Data-driven digital marketing strategies including SEO, PPC, content marketing, and lead generation campaigns.",
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "CRM Services",
+                      description:
+                        "Customer relationship management solutions to collect, segment, and analyze customer data for automated campaigns.",
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Branding",
+                      description:
+                        "Complete brand identity design including logo design, brand strategy, and creative visual assets.",
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Social Media Management",
+                      description:
+                        "End-to-end social media management with engaging content creation, community management, and growth strategies.",
+                    },
+                  },
+                ],
+              },
             }),
           }}
         />
