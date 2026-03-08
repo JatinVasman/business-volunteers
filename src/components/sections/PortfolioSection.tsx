@@ -47,6 +47,12 @@ const projects: Project[] = [
     image: "/Website/dailymobdesign.webp",
     link: "https://dailymobdesign.com/",
   },
+  {
+    name: "Rahi Homes",
+    category: "Real Estate",
+    image: "/Website/RahiHomes.png",
+    link: "https://rahi-homes.vercel.app/",
+  },
 ];
 
 export default function PortfolioSection() {
