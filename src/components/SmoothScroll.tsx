@@ -16,25 +16,32 @@ export default function SmoothScroll({
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.0,
+      duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      touchMultiplier: 1.5,
+      lerp: 0.08,
+      touchMultiplier: 2,
+      smoothWheel: true,
       syncTouch: true,
+      syncTouchLerp: 0.06,
     });
 
     lenisRef.current = lenis;
 
     lenis.on("scroll", ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
+    /* Use native rAF instead of gsap.ticker for unlocked frame rate (120fps+) */
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
 
     gsap.ticker.lagSmoothing(0);
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
-      gsap.ticker.remove(lenis.raf);
     };
   }, []);
 

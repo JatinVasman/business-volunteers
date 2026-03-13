@@ -22,26 +22,26 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://businessvolunteers.online"),
-  title: "Digital Marketing Agency India | Business Volunteers",
+  title: "Digital Marketing Agency In India | Business Volunteers",
   description:
     "We help businesses grow with data-driven advertising, social media marketing, branding, and high-converting campaigns tailored for the Delhi market",
   keywords: [
-    "advertising agency India",
-    "digital marketing agency India",
+    "advertising agency In India",
+    "digital marketing agency In India",
     "creative branding agency",
-    "social media marketing India",
+    "social media marketing In India",
     "best advertising agency in India",
-    "brand strategy India",
+    "brand strategy In India",
     "performance marketing",
-    "SEO services India",
-    "PPC campaigns India",
+    "SEO services In India",
+    "PPC campaigns In India",
     "content marketing agency",
-    "influencer marketing India",
+    "influencer marketing In India",
     "lead generation agency",
     "business growth marketing",
     "high-converting campaigns",
     "data-driven advertising",
-    "creative agency India",
+    "creative agency In India",
     "Business Volunteers",
   ],
   icons: {
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     apple: "/logo-dark.png",
   },
   openGraph: {
-    title: "Digital Marketing Agency India | Business Volunteers",
+    title: "Digital Marketing Agency In India | Business Volunteers",
     description:
       "We help businesses grow with data-driven advertising, social media marketing, branding, and high-converting campaigns tailored for the Delhi market",
     url: "https://businessvolunteers.online",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital Marketing Agency India | Business Volunteers",
+    title: "Digital Marketing Agency In India | Business Volunteers",
     description:
       "We help businesses grow with data-driven advertising, social media marketing, branding, and high-converting campaigns tailored for the Delhi market",
   },
