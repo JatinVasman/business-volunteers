@@ -13,6 +13,7 @@ const navLinks = [
   { label: "Portfolio", href: "#social" },
   { label: "CRM", href: "#crm" },
   { label: "Testimonials", href: "#testimonials" },
+  { label: "Pricing", href: "#pricing" },
   { label: "Contact", href: "#contact" },
 ];
 

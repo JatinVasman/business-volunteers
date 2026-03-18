@@ -9,6 +9,7 @@ import ResultsSection from "@/components/sections/ResultsSection";
 import WhyChooseUsSection from "@/components/sections/WhyChooseUsSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import FAQSection from "@/components/sections/FAQSection";
+import PricingSection from "@/components/sections/PricingSection";
 import ContactSection from "@/components/sections/ContactSection";
 
 export default function Home() {
@@ -25,6 +26,7 @@ export default function Home() {
       <WhyChooseUsSection />
       <TestimonialsSection />
       <FAQSection />
+      <PricingSection />
       <ContactSection />
     </>
   );
