@@ -2,43 +2,41 @@
 
 import { motion } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
-import {
-  Share2,
-  Globe,
-  Smartphone,
-  PenTool,
-  Palette,
-} from "lucide-react";
+import { Share2, Globe, Smartphone, PenTool, Palette } from "lucide-react";
 
 const pricingItems = [
   {
     icon: Share2,
     title: "Social Media Handling",
-    description: "15 Posts + 5 Reels per month — strategic content to grow your brand.",
+    description: "Strategic content to grow your brand.",
     price: "3,500",
   },
   {
     icon: Globe,
     title: "Website Design",
-    description: "Modern, responsive websites built for performance and conversions.",
+    description:
+      "Modern, responsive websites built for performance and conversions.",
     price: "6,500",
   },
   {
     icon: Smartphone,
     title: "UGC Video",
-    description: "Authentic user-generated style videos that drive real engagement.",
+    description:
+      "Authentic user-generated style videos that drive real engagement.",
     price: "1,800",
   },
   {
     icon: PenTool,
     title: "Logo Design",
-    description: "Memorable logos that capture your brand's essence at first glance.",
+    description:
+      "Memorable logos that capture your brand's essence at first glance.",
     price: "850",
   },
   {
     icon: Palette,
     title: "Poster Design",
-    description: "Eye-catching posters that communicate your message with impact.",
+    description:
+      "Eye-catching posters that communicate your message with impact.",
     price: "149",
   },
 ];
