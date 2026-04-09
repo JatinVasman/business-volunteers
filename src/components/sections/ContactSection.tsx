@@ -11,6 +11,7 @@ export default function ContactSection() {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    phone: "",
     service: "",
     message: "",
   });
@@ -26,7 +27,7 @@ export default function ContactSection() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (!form.name || !form.email || !form.service || !form.message) {
+    if (!form.name || !form.email || !form.phone || !form.service || !form.message) {
       setStatus("error");
       setErrorMessage("Please fill in all fields.");
       return;
@@ -55,12 +56,13 @@ export default function ContactSection() {
         `Hi, I just submitted a contact form on your website.\n\n` +
           `*Name:* ${form.name}\n` +
           `*Email:* ${form.email}\n` +
+          `*Phone:* ${form.phone}\n` +
           `*Service:* ${form.service}\n\n` +
           `*Message:*\n${form.message}`,
       );
       window.open(`https://wa.me/918586989832?text=${whatsappText}`, "_blank");
 
-      setForm({ name: "", email: "", service: "", message: "" });
+      setForm({ name: "", email: "", phone: "", service: "", message: "" });
 
       // Reset status after 5 seconds
       setTimeout(() => setStatus("idle"), 5000);
@@ -115,6 +117,20 @@ export default function ContactSection() {
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder:text-gray-700 focus:outline-none focus:border-green/40 focus:shadow-[0_0_15px_rgba(0,224,90,0.1)] transition-all"
                   />
                 </div>
+              </div>
+              <div>
+                <label className="block text-xs text-gray-600 mb-2 uppercase tracking-wider">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  required
+                  placeholder="+91 XXXXX XXXXX"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder:text-gray-700 focus:outline-none focus:border-green/40 focus:shadow-[0_0_15px_rgba(0,224,90,0.1)] transition-all"
+                />
               </div>
               <div>
                 <label className="block text-xs text-gray-600 mb-2 uppercase tracking-wider">

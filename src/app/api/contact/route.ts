@@ -5,10 +5,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, service, message } = await req.json();
+    const { name, email, phone, service, message } = await req.json();
 
     // Validate required fields
-    if (!name || !email || !service || !message) {
+    if (!name || !email || !phone || !service || !message) {
       return NextResponse.json(
         { error: "All fields are required." },
         { status: 400 },
@@ -43,6 +43,12 @@ export async function POST(req: NextRequest) {
               <tr>
                 <td style="padding: 12px 0; border-bottom: 1px solid #1a1a1a; color: #888; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">Service</td>
                 <td style="padding: 12px 0; border-bottom: 1px solid #1a1a1a; color: #fff; font-size: 15px;">${service}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #1a1a1a; color: #888; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">Phone</td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #1a1a1a; color: #fff; font-size: 15px;">
+                  <a href="tel:${phone}" style="color: #00e05a; text-decoration: none;">${phone}</a>
+                </td>
               </tr>
             </table>
             <div style="margin-top: 24px;">
