@@ -53,11 +53,11 @@ export default function ContactSection() {
 
       const whatsappText = encodeURIComponent(
         `Hi, I just submitted a contact form on your website.\n\n` +
-          `*Name:* ${form.name}\n` +
-          `*Email:* ${form.email}\n` +
-          `*Phone:* ${form.phone}\n` +
-          `*Service:* ${form.service}\n\n` +
-          `*Message:*\n${form.message}`,
+        `*Name:* ${form.name}\n` +
+        `*Email:* ${form.email}\n` +
+        `*Phone:* ${form.phone}\n` +
+        `*Service:* ${form.service}\n\n` +
+        `*Message:*\n${form.message}`,
       );
       window.open(`https://wa.me/918586989832?text=${whatsappText}`, "_blank");
 
@@ -171,9 +171,8 @@ export default function ContactSection() {
                   type="submit"
                   disabled={status === "sending"}
                   data-cursor-hover
-                  className={`w-full py-4 rounded-xl font-[900] text-base flex items-center justify-center gap-2 transition-all duration-300 text-white ${
-                    status === "sending" ? "opacity-60 cursor-not-allowed" : "hover:scale-[1.02]"
-                  }`}
+                  className={`w-full py-4 rounded-xl font-[900] text-base flex items-center justify-center gap-2 transition-all duration-300 text-white ${status === "sending" ? "opacity-60 cursor-not-allowed" : "hover:scale-[1.02]"
+                    }`}
                   style={{
                     background: "linear-gradient(135deg, #ff6b35, #ff9a00)",
                     boxShadow: "0 6px 20px rgba(255,107,53,0.4)",
@@ -216,7 +215,7 @@ export default function ContactSection() {
               { href: "https://www.youtube.com/@TheBusinessVolunteers", color: "#FF0000", path: "M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" },
               { href: "https://x.com/Business8920", color: "#1a1a2e", path: "M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" },
               { href: "https://in.pinterest.com/businessvolunteers/", color: "#E60023", path: "M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.399.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.951-7.252 4.173 0 7.41 2.967 7.41 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.367 18.62 0 12.017 0z" },
-              { href: "https://share.google/eXJq4T9BpRIu0eWZY", color: "#34A853", path: "M12 0C7.31 0 3.5 3.81 3.5 8.5c0 5.41 7.96 14.94 8.16 15.18.08.09.19.14.3.14s.22-.05.3-.14c.2-.24 8.16-9.77 8.16-15.18C20.5 3.81 16.69 0 12 0zm0 11.5c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z" },
+              { href: "https://share.google/RhPR4PQgJhw724sGz", color: "#34A853", path: "M12 0C7.31 0 3.5 3.81 3.5 8.5c0 5.41 7.96 14.94 8.16 15.18.08.09.19.14.3.14s.22-.05.3-.14c.2-.24 8.16-9.77 8.16-15.18C20.5 3.81 16.69 0 12 0zm0 11.5c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z" },
             ].map((social) => (
               <motion.a
                 key={social.href}
