@@ -17,7 +17,6 @@ const images = fileNumbers.map((num, i) => ({
 
 const COLS = 3;
 
-/* Snake traversal: even rows L→R, odd rows R→L */
 function buildSnakeOrder(total: number, cols: number): number[] {
   const order: number[] = [];
   const rows = Math.ceil(total / cols);
@@ -38,7 +37,7 @@ SNAKE.forEach((imgIdx, pos) => {
   REVEAL_POS[imgIdx] = pos;
 });
 
-export default function SocialMediaSection() {
+export default function SocialMediaSection({ hideHeader }: { hideHeader?: boolean }) {
   const [selected, setSelected] = useState<number | null>(null);
   const [revealCount, setRevealCount] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
@@ -47,13 +46,11 @@ export default function SocialMediaSection() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const initializedRef = useRef(false);
 
-  /* ── Client mount (for portal) ── */
   useEffect(() => {
     const timer = setTimeout(() => setMounted(true), 0);
     return () => clearTimeout(timer);
   }, []);
 
-  /* ── Detect mobile ── */
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px)");
     const update = (matches: boolean) => {
@@ -69,7 +66,6 @@ export default function SocialMediaSection() {
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  /* ── Hover → progressive reveal ── */
   const revealStarted = useRef(false);
 
   useEffect(() => {
@@ -91,7 +87,6 @@ export default function SocialMediaSection() {
     };
   }, [isHovering, revealCount]);
 
-  /* ── Lock ALL scrolling when lightbox is open ── */
   useEffect(() => {
     if (selected !== null) {
       document.documentElement.classList.add("lenis-stopped");
@@ -109,7 +104,6 @@ export default function SocialMediaSection() {
     };
   }, [selected]);
 
-  /* ── Lightbox via portal (escapes section CSS contain) ── */
   const lightbox =
     mounted && selected !== null
       ? createPortal(
@@ -119,7 +113,7 @@ export default function SocialMediaSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black flex items-center justify-center p-4"
+              className="fixed inset-0 bg-black/90 flex items-center justify-center p-4"
               style={{ zIndex: 99999 }}
               onClick={() => setSelected(null)}
               onWheel={(e) => e.stopPropagation()}
@@ -152,11 +146,11 @@ export default function SocialMediaSection() {
                         selected > 0 ? selected - 1 : images.length - 1,
                       )
                     }
-                    className="px-4 py-2 rounded-lg glass text-sm text-gray-300 hover:text-green transition-colors"
+                    className="px-4 py-2 rounded-lg bg-white/10 text-sm text-gray-300 hover:text-[#ff6b35] transition-colors"
                   >
                     ← Prev
                   </button>
-                  <span className="px-4 py-2 text-sm text-gray-600">
+                  <span className="px-4 py-2 text-sm text-gray-400">
                     {selected + 1} / {images.length}
                   </span>
                   <button
@@ -165,7 +159,7 @@ export default function SocialMediaSection() {
                         selected < images.length - 1 ? selected + 1 : 0,
                       )
                     }
-                    className="px-4 py-2 rounded-lg glass text-sm text-gray-300 hover:text-green transition-colors"
+                    className="px-4 py-2 rounded-lg bg-white/10 text-sm text-gray-300 hover:text-[#ff6b35] transition-colors"
                   >
                     Next →
                   </button>
@@ -178,33 +172,33 @@ export default function SocialMediaSection() {
       : null;
 
   return (
-    <section id="social" className="relative py-32 overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green/10 to-transparent" />
+    <section id={hideHeader ? undefined : "social"} className={`relative ${hideHeader ? "py-4" : "py-20"} overflow-hidden ${hideHeader ? "bg-transparent" : "bg-light"}`}>
+      <div className="max-w-7xl mx-auto px-[5%] relative z-10">
+        {!hideHeader && (
+          <>
+            <SectionHeading
+              title="Social Media Work"
+              subtitle="📸 Our Creative Output"
+            />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <SectionHeading
-          title="Social Media Work"
-          subtitle="Our Creative Output"
-        />
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-center text-[#666] text-base max-w-2xl mx-auto -mt-8 mb-14 font-[600]"
+            >
+              A showcase of our social media designs — from branding to campaign
+              visuals — crafted to engage audiences and drive results. ✨
+            </motion.p>
+          </>
+        )}
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-center text-gray-500 text-base max-w-2xl mx-auto -mt-8 mb-14"
-        >
-          A showcase of our social media designs — from branding to campaign
-          visuals — crafted to engage audiences and drive results.
-        </motion.p>
-
-        {/* Hoverable wrapper */}
         <div
           className="relative"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
-          {/* Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
             {images.map((img, i) => {
               const pos = REVEAL_POS[i];
@@ -221,6 +215,7 @@ export default function SocialMediaSection() {
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     onClick={() => isRevealed && setSelected(i)}
                     data-cursor-hover
+                    style={{ border: "2px solid rgba(255,107,53,0.1)" }}
                   >
                     <Image
                       src={img.src}
@@ -230,19 +225,18 @@ export default function SocialMediaSection() {
                       className="w-full h-full object-cover rounded-xl transition-all duration-700 group-hover:scale-105"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end p-4">
-                      <span className="text-sm font-medium text-white/90">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end p-4">
+                      <span className="text-sm font-[700] text-white/90">
                         Design #{i + 1}
                       </span>
                     </div>
-                    <div className="absolute inset-0 border border-green/0 group-hover:border-green/30 rounded-xl transition-colors duration-500" />
+                    <div className="absolute inset-0 border-2 border-transparent group-hover:border-[rgba(255,107,53,0.3)] rounded-xl transition-colors duration-500" />
                   </motion.div>
                 </div>
               );
             })}
           </div>
 
-          {/* Hover prompt — desktop only */}
           {!isMobile && revealCount === 0 && (
             <motion.div
               className="absolute inset-0 flex items-center justify-center pointer-events-none"
@@ -250,8 +244,14 @@ export default function SocialMediaSection() {
               animate={{ opacity: isHovering ? 0 : 1 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="bg-black/50 backdrop-blur-sm px-8 py-4 rounded-full border border-white/10">
-                <span className="text-gray-300 text-sm font-light tracking-widest uppercase">
+              <div
+                className="px-8 py-4 rounded-full"
+                style={{
+                  background: "rgba(255,107,53,0.9)",
+                  color: "#fff",
+                }}
+              >
+                <span className="text-sm font-[800] tracking-widest uppercase">
                   Hover to explore ✦
                 </span>
               </div>

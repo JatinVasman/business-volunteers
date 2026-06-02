@@ -21,10 +21,6 @@ export default function CursorFollower() {
       mousePos.current = { x: e.clientX, y: e.clientY };
       // Dot follows instantly — use transform (GPU-accelerated, no layout)
       dot.style.transform = `translate(${e.clientX - 3}px, ${e.clientY - 3}px)`;
-
-      // Primary grid follows instantly
-      document.documentElement.style.setProperty("--mouse-x", e.clientX + "px");
-      document.documentElement.style.setProperty("--mouse-y", e.clientY + "px");
     };
 
     // Use event delegation instead of MutationObserver — much cheaper
@@ -64,14 +60,6 @@ export default function CursorFollower() {
       const tdy = mousePos.current.y - trailPos.current.y;
       trailPos.current.x += tdx * 0.05;
       trailPos.current.y += tdy * 0.05;
-      document.documentElement.style.setProperty(
-        "--trail-x",
-        trailPos.current.x + "px",
-      );
-      document.documentElement.style.setProperty(
-        "--trail-y",
-        trailPos.current.y + "px",
-      );
 
       raf = requestAnimationFrame(animate);
     };
@@ -93,8 +81,6 @@ export default function CursorFollower() {
     <>
       <div ref={cursorRef} className="custom-cursor hidden md:block" />
       <div ref={dotRef} className="cursor-dot hidden md:block" />
-      <div className="cursor-glow-trail" />
-      <div className="cursor-glow-bg" />
     </>
   );
 }

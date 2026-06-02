@@ -1,32 +1,27 @@
 import HeroSection from "@/components/sections/HeroSection";
-import AboutSection from "@/components/sections/AboutSection";
 import ServicesSection from "@/components/sections/ServicesSection";
-import PortfolioSection from "@/components/sections/PortfolioSection";
-import CRMSection from "@/components/sections/CRMSection";
-import SocialMediaSection from "@/components/sections/SocialMediaSection";
-import ProcessSection from "@/components/sections/ProcessSection";
-import ResultsSection from "@/components/sections/ResultsSection";
-import WhyChooseUsSection from "@/components/sections/WhyChooseUsSection";
+import CombinedPortfolioSection from "@/components/sections/CombinedPortfolioSection";
+
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import FAQSection from "@/components/sections/FAQSection";
-import PricingSection from "@/components/sections/PricingSection";
 import ContactSection from "@/components/sections/ContactSection";
+import Ticker from "@/components/Ticker";
+import Divider from "@/components/Divider";
 
 export default function Home() {
   return (
     <>
       <HeroSection />
-      <AboutSection />
+      <Ticker />
+      <Divider />
       <ServicesSection />
-      <SocialMediaSection />
-      <PortfolioSection />
-      <CRMSection />
-      <ProcessSection />
-      <ResultsSection />
-      <WhyChooseUsSection />
+      <Divider />
+      <CombinedPortfolioSection />
+      <Divider />
       <TestimonialsSection />
+      <Divider />
       <FAQSection />
-      <PricingSection />
+      <Divider />
       <ContactSection />
     </>
   );

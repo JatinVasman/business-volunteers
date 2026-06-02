@@ -9,13 +9,14 @@ interface Props {
 
 export default function SectionHeading({ title, subtitle }: Props) {
   return (
-    <div className="text-center mb-16">
+    <div className="text-center mb-10 sm:mb-16">
       <motion.span
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6 }}
-        className="text-green text-sm font-semibold uppercase tracking-[0.25em] mb-3 block"
+        className="text-[0.72rem] tracking-[3px] uppercase font-[800] mb-3 block"
+        style={{ color: "#ff6b35" }}
       >
         {subtitle}
       </motion.span>
@@ -24,7 +25,8 @@ export default function SectionHeading({ title, subtitle }: Props) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.7, delay: 0.1 }}
-        className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-white"
+        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-[900] leading-[1.15] tracking-[-1px]"
+        style={{ color: "#1a1a2e" }}
       >
         {title}
       </motion.h2>
@@ -37,7 +39,8 @@ export default function SectionHeading({ title, subtitle }: Props) {
           delay: 0.3,
           ease: [0.25, 0.46, 0.45, 0.94],
         }}
-        className="mt-5 mx-auto w-20 h-[2px] bg-gradient-to-r from-green to-green-light origin-center"
+        className="mt-5 mx-auto w-20 h-[3px] origin-center rounded-full"
+        style={{ background: "linear-gradient(90deg, #ff6b35, #ff9a00, #00d084)" }}
       />
     </div>
   );

@@ -61,7 +61,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     .slice(0, 3);
 
   return (
-    <section className="relative min-h-screen py-32 overflow-hidden">
+    <section className="relative min-h-screen py-24 sm:py-32 overflow-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

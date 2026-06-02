@@ -64,48 +64,42 @@ export default function FAQPage() {
   };
 
   return (
-    <section className="relative min-h-screen py-32 overflow-hidden">
+    <section className="relative min-h-screen py-24 sm:py-32 overflow-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       {/* ambient glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(0,224,90,0.06),_transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,107,53,0.06),_transparent_60%)]" />
 
       <div className="max-w-3xl mx-auto px-6 relative z-10">
         <SectionHeading title="Frequently Asked Questions" subtitle="FAQs" />
 
         <div className="space-y-4">
           {faqs.map((faq, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{
-                duration: 0.6,
-                delay: i * 0.08,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-            >
+            <div key={i}>
               <button
                 onClick={() => toggle(i)}
                 data-cursor-hover
-                className={`w-full text-left glass-card p-6 flex items-center justify-between gap-4 transition-all duration-300 ${
-                  openIndex === i
-                    ? "border-green/30 shadow-[0_0_30px_rgba(0,224,90,0.08)]"
-                    : ""
-                }`}
+                className="w-full text-left rounded-[12px] sm:rounded-[16px] p-4 sm:p-6 flex items-center justify-between gap-3 sm:gap-4 transition-all duration-300 bg-white"
+                style={{
+                  border: `2px solid ${openIndex === i ? "rgba(255,107,53,0.3)" : "rgba(0,0,0,0.08)"}`,
+                  boxShadow: openIndex === i ? "0 8px 30px rgba(255,107,53,0.1)" : "none",
+                }}
               >
-                <span className="font-heading text-lg font-semibold text-white pr-4">
+                <span className="text-[0.88rem] sm:text-[0.95rem] font-[800] text-[#1a1a2e] pr-2 sm:pr-4 leading-[1.4]">
                   {faq.question}
                 </span>
                 <motion.span
                   animate={{ rotate: openIndex === i ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
-                  className="flex-shrink-0 w-8 h-8 rounded-full bg-green/10 border border-green/20 flex items-center justify-center"
+                  className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
+                  style={{
+                    background: "rgba(255,107,53,0.1)",
+                    border: "1.5px solid rgba(255,107,53,0.2)",
+                  }}
                 >
-                  <ChevronDown size={18} className="text-green" />
+                  <ChevronDown size={18} style={{ color: "#ff6b35" }} />
                 </motion.span>
               </button>
 
@@ -118,13 +112,16 @@ export default function FAQPage() {
                     transition={{ duration: 0.35, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 py-5 text-gray-400 text-sm leading-relaxed border-l-2 border-green/30 ml-6 mt-2">
+                    <div
+                      className="px-6 py-5 text-[0.84rem] font-[600] text-[#666] leading-relaxed ml-6 mt-2"
+                      style={{ borderLeft: "3px solid #ff6b35" }}
+                    >
                       {faq.answer}
                     </div>
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

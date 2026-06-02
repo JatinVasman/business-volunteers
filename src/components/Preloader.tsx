@@ -2,15 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 export default function Preloader({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
-    // Give the browser time to parse, hydrate, and settle
-    // Uses requestIdleCallback where available for smarter timing
-    // Force scroll to top
     window.scrollTo(0, 0);
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
@@ -18,19 +16,16 @@ export default function Preloader({ children }: { children: React.ReactNode }) {
 
     const finish = () => {
       setLoading(false);
-      // Small delay so exit animation plays before content renders fully
       setTimeout(() => setShowContent(true), 600);
     };
 
-    // Wait for fonts + critical assets
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(() => {
-        // Minimum display time of 1.2s so the preloader doesn't flash
-        const minDelay = setTimeout(finish, 1200);
+        const minDelay = setTimeout(finish, 2000);
         return () => clearTimeout(minDelay);
       });
     } else {
-      const fallback = setTimeout(finish, 1500);
+      const fallback = setTimeout(finish, 2500);
       return () => clearTimeout(fallback);
     }
   }, []);
@@ -42,44 +37,72 @@ export default function Preloader({ children }: { children: React.ReactNode }) {
           <motion.div
             key="preloader"
             initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black"
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
+            style={{
+              background:
+                "linear-gradient(135deg, #ff6b35, #ff9a00, #ffd700, #00d084, #00c9ff, #8b5cf6)",
+              backgroundSize: "400% 400%",
+              animation: "splashGrad 3s ease infinite",
+            }}
           >
-            {/* Ambient glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[radial-gradient(circle,_rgba(0,224,90,0.08)_0%,_transparent_70%)] pointer-events-none" />
+            {/* Logo */}
+            <motion.div
+              initial={{ scale: 0, rotate: -10 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
+              className="w-[110px] h-[110px] rounded-[28px] bg-white/95 flex items-center justify-center mb-6"
+              style={{
+                boxShadow: "0 20px 60px rgba(0,0,0,0.2)",
+                animation: "splashBounce 1s ease infinite alternate",
+              }}
+            >
+              <Image
+                src="/logo-dark.png"
+                alt="Business Volunteers Logo"
+                width={80}
+                height={80}
+                className="rounded-[12px]"
+                priority
+              />
+            </motion.div>
 
-            {/* Brand name */}
+            {/* Title */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="relative z-10 text-center"
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-center"
             >
-              <div className="font-heading text-3xl sm:text-4xl font-bold text-white tracking-tight">
-                Business <span className="gradient-text">Volunteers</span>
+              <div
+                className="text-[clamp(2rem,6vw,3.5rem)] font-[900] text-white leading-[1.1]"
+                style={{ textShadow: "0 4px 20px rgba(0,0,0,0.2)", letterSpacing: "-1px" }}
+              >
+                Business Volunteers
+              </div>
+              <div className="text-[1rem] text-white/90 mt-3 font-[700] tracking-[2px] uppercase">
+                India&apos;s Creative Growth Partner 🇮🇳
+              </div>
+              <div className="text-[2rem] mt-5 tracking-[8px]">
+                😊 🎉 🚀 💡 🌟
               </div>
             </motion.div>
 
-            {/* Loading bar */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className="relative z-10 mt-8 w-48 h-[2px] bg-white/10 rounded-full overflow-hidden"
-            >
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 1.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="h-full bg-gradient-to-r from-green to-green-light origin-left"
-              />
-            </motion.div>
+            {/* Loading Dots */}
+            <div className="flex gap-[10px] mt-9">
+              {[0, 0.2, 0.4].map((delay, i) => (
+                <div
+                  key={i}
+                  className="w-3 h-3 rounded-full bg-white/60"
+                  style={{ animation: `dotPulse 1.2s ease-in-out ${delay}s infinite` }}
+                />
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Main content — hidden until preloader exits */}
       <div
         style={{
           opacity: showContent ? 1 : 0,

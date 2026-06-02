@@ -3,18 +3,21 @@
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
-const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Portfolio", href: "#social" },
-  { label: "CRM", href: "#crm" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Contact", href: "#contact" },
+const scrollLinks = [
+  { label: "🏠 Home", href: "#hero" },
+  { label: "⚡ Services", href: "#services" },
+  { label: "📸 Portfolio", href: "#portfolio" },
+  { label: "⭐ Reviews", href: "#testimonials" },
+];
+
+const pageLinks = [
+  { label: "🏭 Industries", href: "/industries" },
+  { label: "📝 Blog", href: "/blog" },
+  { label: "🤝 B2B Offer", href: "/b2b-offer" },
 ];
 
 export default function Navbar() {
@@ -63,87 +66,111 @@ export default function Navbar() {
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? "glass py-3" : "bg-transparent py-5"
+          scrolled
+            ? "bg-white/97 backdrop-blur-[20px] shadow-[0_4px_20px_rgba(255,107,53,0.15)] py-2"
+            : "bg-white/97 backdrop-blur-[20px] py-3"
         }`}
+        style={{ borderBottom: "3px solid #ff6b35" }}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-[4%] flex items-center justify-between">
+          {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex items-center gap-3 group"
+            className="flex items-center gap-[10px] group"
             data-cursor-hover
           >
             <Image
-              src="/logo.webp"
-              alt="Business Volunteers"
-              width={40}
-              height={40}
+              src="/logo-dark.png"
+              alt="Business Volunteers Logo"
+              width={38}
+              height={38}
+              className="rounded-[10px] shrink-0"
               priority
-              className="rounded-lg transition-transform group-hover:scale-110 brightness-0 invert"
             />
-            <span className="font-heading font-bold text-lg hidden sm:block">
-              Business <span className="gradient-text">Volunteers</span>
+            <span className="font-[900] text-[1.1rem] hidden sm:block" style={{ color: "#ff6b35" }}>
+              Business Volunteers
             </span>
           </button>
 
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
+          {/* Desktop Links */}
+          <div className="hidden lg:flex items-center gap-[2px]">
+            {scrollLinks.map((link) => (
               <button
                 key={link.href}
                 onClick={() => scrollTo(link.href)}
                 data-cursor-hover
-                className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                className={`relative px-3 py-[7px] rounded-[20px] text-[0.78rem] font-[700] transition-all duration-200 ${
                   activeSection === link.href.slice(1)
-                    ? "text-green"
-                    : "text-gray-400 hover:text-white"
+                    ? "text-white"
+                    : "text-[#666] hover:text-white"
                 }`}
+                style={
+                  activeSection === link.href.slice(1)
+                    ? { background: "linear-gradient(135deg, #ff6b35, #ff9a00)" }
+                    : undefined
+                }
+                onMouseEnter={(e) => {
+                  if (activeSection !== link.href.slice(1)) {
+                    (e.target as HTMLElement).style.background = "linear-gradient(135deg, #ff6b35, #ff9a00)";
+                    (e.target as HTMLElement).style.color = "#fff";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (activeSection !== link.href.slice(1)) {
+                    (e.target as HTMLElement).style.background = "";
+                    (e.target as HTMLElement).style.color = "";
+                  }
+                }}
               >
                 {link.label}
-                {activeSection === link.href.slice(1) && (
-                  <motion.div
-                    layoutId="nav-active"
-                    className="absolute bottom-0 left-2 right-2 h-[2px] bg-green rounded-full"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
               </button>
             ))}
-            <Link
-              href="/blog"
-              data-cursor-hover
-              className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                pathname.startsWith("/blog")
-                  ? "text-green"
-                  : "text-gray-400 hover:text-white"
-              }`}
-            >
-              Blog
-              {pathname.startsWith("/blog") && (
-                <motion.div
-                  layoutId="nav-active"
-                  className="absolute bottom-0 left-2 right-2 h-[2px] bg-green rounded-full"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                />
-              )}
-            </Link>
+
+            {pageLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                data-cursor-hover
+                className={`relative px-3 py-[7px] rounded-[20px] text-[0.78rem] font-[700] transition-all duration-200 ${
+                  pathname.startsWith(link.href)
+                    ? "text-white"
+                    : "text-[#666] hover:text-white hover:bg-gradient-to-r hover:from-p1 hover:to-p2"
+                }`}
+                style={
+                  pathname.startsWith(link.href)
+                    ? { background: "linear-gradient(135deg, #ff6b35, #ff9a00)" }
+                    : undefined
+                }
+              >
+                {link.label}
+              </Link>
+            ))}
+
             <button
               onClick={() => scrollTo("#contact")}
               data-cursor-hover
-              className="ml-4 px-6 py-2.5 bg-green text-black rounded-lg text-sm font-bold transition-all duration-300 hover:bg-green-light hover:shadow-[0_0_30px_rgba(0,224,90,0.4)] hover:scale-105"
+              className="ml-2 px-4 py-[8px] rounded-[25px] text-[0.78rem] font-[900] text-white transition-all duration-300 hover:scale-[1.08] hover:rotate-[-1deg]"
+              style={{
+                background: "linear-gradient(135deg, #ff6b35, #ff9a00)",
+                boxShadow: "0 4px 15px rgba(255,107,53,0.4)",
+              }}
             >
-              Start a Project
+              🚀 Start a Project
             </button>
           </div>
 
+          {/* Mobile toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
+            className="lg:hidden p-2 rounded-lg hover:bg-[rgba(255,107,53,0.1)] transition-colors"
             aria-label="Toggle Menu"
           >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileOpen ? <X size={24} color="#ff6b35" /> : <Menu size={24} color="#ff6b35" />}
           </button>
         </div>
       </motion.nav>
 
+      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -151,43 +178,56 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 pt-20 bg-black/98 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-40 pt-20 bg-white/98 backdrop-blur-xl lg:hidden"
           >
             <div className="flex flex-col items-center gap-2 p-8">
-              {navLinks.map((link, i) => (
+              {scrollLinks.map((link, i) => (
                 <motion.button
                   key={link.href}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.08 }}
                   onClick={() => scrollTo(link.href)}
-                  className="w-full text-center py-4 text-xl font-medium text-gray-300 hover:text-green transition-colors rounded-xl hover:bg-white/5"
+                  className="w-full text-center py-4 text-xl font-[700] text-[#666] hover:text-[#ff6b35] transition-colors rounded-xl hover:bg-[rgba(255,107,53,0.05)]"
                 >
                   {link.label}
                 </motion.button>
               ))}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navLinks.length * 0.08 }}
-                className="w-full"
-              >
-                <Link
-                  href="/blog"
-                  onClick={() => setMobileOpen(false)}
-                  className="block w-full text-center py-4 text-xl font-medium text-gray-300 hover:text-green transition-colors rounded-xl hover:bg-white/5"
+
+              {pageLinks.map((link, i) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: (scrollLinks.length + i) * 0.08 }}
+                  className="w-full"
                 >
-                  Blog
-                </Link>
-              </motion.div>
+                  <Link
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={`block w-full text-center py-4 text-xl font-[700] transition-colors rounded-xl hover:bg-[rgba(255,107,53,0.05)] ${
+                      pathname.startsWith(link.href)
+                        ? "text-[#ff6b35]"
+                        : "text-[#666] hover:text-[#ff6b35]"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              ))}
+
               <motion.button
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: (navLinks.length + 1) * 0.08 }}
+                transition={{ delay: (scrollLinks.length + pageLinks.length) * 0.08 }}
                 onClick={() => scrollTo("#contact")}
-                className="mt-4 w-full py-4 bg-green text-black rounded-xl text-lg font-bold"
+                className="mt-4 w-full py-4 rounded-xl text-lg font-[900] text-white"
+                style={{
+                  background: "linear-gradient(135deg, #ff6b35, #ff9a00)",
+                  boxShadow: "0 6px 20px rgba(255,107,53,0.4)",
+                }}
               >
-                Start a Project
+                🚀 Start a Project
               </motion.button>
             </div>
           </motion.div>

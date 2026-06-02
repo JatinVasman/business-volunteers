@@ -1,88 +1,22 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-
 import SectionHeading from "@/components/ui/SectionHeading";
-import {
-  Share2,
-  Globe,
-  BarChart3,
-  Palette,
-  Presentation,
-  PenTool,
-  Video,
-  BookOpen,
-  MessageCircle,
-  Search,
-  Smartphone,
-  TrendingUp,
-} from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const services = [
-  {
-    icon: Share2,
-    title: "Social Media Management",
-    desc: "Strategic content creation and community engagement to grow your brand presence across all platforms.",
-  },
-  {
-    icon: Globe,
-    title: "Website Development",
-    desc: "Modern, responsive websites built for performance and conversions with cutting-edge technology.",
-  },
-  {
-    icon: BarChart3,
-    title: "Data Analytics",
-    desc: "Actionable insights from your data to drive smarter business decisions and optimize campaigns.",
-  },
-  {
-    icon: Palette,
-    title: "Graphic & Poster Design",
-    desc: "Eye-catching visual designs that communicate your brand message with clarity and impact.",
-  },
-  {
-    icon: Presentation,
-    title: "Presentation Design",
-    desc: "Professional pitch decks and presentations that captivate audiences and close deals.",
-  },
-  {
-    icon: PenTool,
-    title: "Logo design",
-    desc: "Crafting memorable logos that capture your brand's essence and make a lasting first impression.",
-  },
-  {
-    icon: Video,
-    title: "Video Editing",
-    desc: "Engaging video content from reels to corporate films, edited with a cinematic touch.",
-  },
-  {
-    icon: Smartphone,
-    title: "UGC Videos",
-    desc: "Authentic user-generated style videos that resonate with your audience and drive engagement.",
-  },
-  {
-    icon: TrendingUp,
-    title: "CRM",
-    desc: "Streamline customer relationships with automated campaigns, loyalty programs, and real-time analytics dashboards.",
-  },
-  {
-    icon: BookOpen,
-    title: "Brochure Design",
-    desc: "Beautifully crafted brochures that tell your brand story in print and digital formats.",
-  },
-  {
-    icon: MessageCircle,
-    title: "WhatsApp Business Setup",
-    desc: "Professional WhatsApp Business integration for seamless customer communication.",
-  },
-  {
-    icon: Search,
-    title: "Google Business Setup",
-    desc: "Optimized Google Business profiles to boost local visibility and attract nearby customers.",
-  },
+  { icon: "📱", name: "Social Media Management", tagline: "Grow on Instagram, Facebook, LinkedIn & more! 🚀", range: "₹3,500 – ₹8,500/mo" },
+  { icon: "💻", name: "Website Development", tagline: "Modern, fast, SEO-ready websites that convert! ⚡", range: "₹6,500 – ₹18,000" },
+  { icon: "🔍", name: "SEO Services", tagline: "Rank on Google & get organic leads 24/7! 📈", range: "₹4,000 – ₹12,000/mo" },
+  { icon: "📊", name: "Meta Ads (FB & IG)", tagline: "Targeted ads that generate real leads & sales! 🎯", range: "15% of Ad Spend (Min ₹3,000)" },
+  { icon: "✏️", name: "Logo & Branding", tagline: "Memorable logos & brand identities built to last! 🎨", range: "₹850 – ₹3,500" },
+  { icon: "🎨", name: "Graphic & Poster Design", tagline: "Eye-catching graphics that make you stand out! ✨", range: "₹149 – ₹1,500/design" },
+  { icon: "🎬", name: "Video & UGC Production", tagline: "Reels, UGC ads & brand videos that drive engagement! 🎥", range: "₹1,800 – ₹5,000/video" },
+  { icon: "🤝", name: "CRM Solutions", tagline: "Automate follow-ups, loyalty programs & customer journeys! 🔄", range: "₹12,000 – ₹65,000" },
+  { icon: "💬", name: "WhatsApp Marketing", tagline: "India's most powerful channel — 90%+ open rate! 📱", range: "₹2,500 – ₹6,000/mo" },
 ];
 
 export default function ServicesSection() {
@@ -116,36 +50,48 @@ export default function ServicesSection() {
   }, []);
 
   return (
-    <section id="services" className="relative py-32 overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green/10 to-transparent" />
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <SectionHeading title="What We Deliver" subtitle="Our Services" />
+    <section id="services" className="relative py-20 overflow-hidden bg-warm">
+      <div className="max-w-7xl mx-auto px-[5%] relative z-10">
+        <SectionHeading title={`Our \u200BCore Services`} subtitle="⚡ What We Deliver" />
+        <p className="text-center text-[#666] text-[0.93rem] max-w-[580px] mx-auto -mt-8 mb-10 font-[600]">
+          Everything your brand needs to grow — under one roof! 🎉
+        </p>
 
         <div
           ref={gridRef}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
         >
-          {services.map((s) => {
-            const Icon = s.icon;
-            return (
-              <div
-                key={s.title}
-                className="service-card glass-card p-6 group transition-transform duration-300 hover:-translate-y-2.5 hover:scale-[1.03]"
+          {services.map((s) => (
+            <div
+              key={s.name}
+              className="service-card svc-card p-7 group"
+              data-cursor-hover
+            >
+              <span
+                className="text-[2.2rem] mb-[14px] block"
+                style={{ animation: "iconWiggle 3s ease-in-out infinite" }}
+              >
+                {s.icon}
+              </span>
+              <h3 className="text-[0.95rem] font-[800] mb-[7px]" style={{ color: "#1a1a2e" }}>
+                {s.name}
+              </h3>
+              <p className="text-[0.82rem] text-[#666] leading-[1.6] font-[600]">
+                {s.tagline}
+              </p>
+              <div className="mt-3 text-[0.82rem] font-[800]" style={{ color: "#ff6b35" }}>
+                {s.range}
+              </div>
+              <a
+                href="#contact"
+                className="mt-4 inline-flex items-center gap-2 px-4 py-[7px] rounded-[20px] text-[0.75rem] font-[800] text-white transition-all duration-300 hover:scale-[1.05] hover:shadow-[0_6px_20px_rgba(255,107,53,0.35)]"
+                style={{ background: "linear-gradient(135deg, #ff6b35, #ff9a00)" }}
                 data-cursor-hover
               >
-                <div className="w-12 h-12 rounded-xl bg-green/10 border border-green/10 flex items-center justify-center mb-4 group-hover:bg-green/20 group-hover:border-green/30 group-hover:shadow-[0_0_25px_rgba(0,224,90,0.15)] transition-all duration-500">
-                  <Icon size={22} className="text-green" />
-                </div>
-                <h3 className="font-heading text-base font-semibold mb-2 text-white group-hover:text-green transition-colors duration-300">
-                  {s.title}
-                </h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  {s.desc}
-                </p>
-              </div>
-            );
-          })}
+                📩 Get a Quote
+              </a>
+            </div>
+          ))}
         </div>
       </div>
     </section>

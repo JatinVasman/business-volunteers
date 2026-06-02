@@ -40,7 +40,7 @@ export default function AnimatedCounter({ target, suffix = "" }: Props) {
   }, [target, suffix]);
 
   return (
-    <span ref={ref} className="font-heading text-5xl font-bold gradient-text">
+    <span ref={ref} className="text-5xl font-[900] gradient-text">
       0{suffix}
     </span>
   );

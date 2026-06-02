@@ -2,121 +2,73 @@
 
 import { motion } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { Share2, Globe, Smartphone, PenTool, Palette } from "lucide-react";
 
 const pricingItems = [
-  {
-    icon: Share2,
-    title: "Social Media Handling",
-    description: "Strategic content to grow your brand.",
-    price: "3,500",
-  },
-  {
-    icon: Globe,
-    title: "Website Design",
-    description:
-      "Modern, responsive websites built for performance and conversions.",
-    price: "6,500",
-  },
-  {
-    icon: Smartphone,
-    title: "UGC Video",
-    description:
-      "Authentic user-generated style videos that drive real engagement.",
-    price: "1,800",
-  },
-  {
-    icon: PenTool,
-    title: "Logo Design",
-    description:
-      "Memorable logos that capture your brand's essence at first glance.",
-    price: "850",
-  },
-  {
-    icon: Palette,
-    title: "Poster Design",
-    description:
-      "Eye-catching posters that communicate your message with impact.",
-    price: "149",
-  },
+  { icon: "📱", name: "Social Media Management", desc: "Instagram, Facebook, LinkedIn — strategy, content & growth", range: "₹3,500 – ₹8,500", unit: "/month" },
+  { icon: "💻", name: "Website Development", desc: "Modern, fast, SEO-ready websites that convert visitors", range: "₹6,500 – ₹18,000", unit: "one-time" },
+  { icon: "🔍", name: "SEO Services", desc: "Rank on Google & get free organic leads 24/7", range: "₹4,000 – ₹12,000", unit: "/month" },
+  { icon: "📊", name: "Meta Ads (FB & IG)", desc: "Targeted paid campaigns that generate real leads & sales", range: "15% of Ad Spend", unit: "Min ₹3,000/mo", featured: true },
+  { icon: "✏️", name: "Logo & Branding", desc: "Memorable logos & brand identities built to last", range: "₹850 – ₹3,500", unit: "one-time" },
+  { icon: "🎨", name: "Graphic / Poster Design", desc: "Eye-catching social posts, banners & posters", range: "₹149 – ₹1,500", unit: "/design" },
+  { icon: "🎬", name: "Video & UGC", desc: "Reels, UGC ads & brand videos that drive engagement", range: "₹1,800 – ₹5,000", unit: "/video" },
+  { icon: "🤝", name: "CRM Solutions", desc: "Automate follow-ups, loyalty programs & customer journeys", range: "₹12,000 – ₹65,000", unit: "one-time" },
+  { icon: "💬", name: "WhatsApp Marketing", desc: "India's most powerful channel — 90%+ open rate", range: "₹2,500 – ₹6,000", unit: "/month" },
 ];
 
 const cardVariants = {
   hidden: { opacity: 0, y: 60 },
   visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.7,
-      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
-    },
+    opacity: 1, y: 0,
+    transition: { delay: i * 0.08, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] },
   }),
 };
 
 export default function PricingSection() {
   return (
-    <section id="pricing" className="relative py-32 overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green/10 to-transparent" />
+    <section id="pricing" className="relative py-20 overflow-hidden bg-cool">
+      <div className="max-w-7xl mx-auto px-[5%] relative z-10">
+        <SectionHeading title="Our Pricing" subtitle="💰 Affordable Plans" />
+        <p className="text-center text-[#666] text-[0.93rem] max-w-[580px] mx-auto -mt-8 mb-10 font-[600]">
+          Transparent pricing — no hidden costs, no surprises! 🎉
+        </p>
 
-      {/* subtle background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-green/[0.03] blur-[120px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <SectionHeading title="Our Pricing" subtitle="Affordable Plans" />
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-          {pricingItems.map((item, i) => {
-            const Icon = item.icon;
-            return (
-              <motion.div
-                key={item.title}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-60px" }}
-                variants={cardVariants}
-                data-cursor-hover
-                className="pricing-card glass-card p-8 group relative overflow-hidden transition-all duration-500 hover:-translate-y-3 hover:border-green/20 hover:shadow-[0_0_60px_rgba(0,224,90,0.08)]"
-              >
-                {/* hover glow accent */}
-                <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-green/0 group-hover:bg-green/[0.06] blur-[60px] transition-all duration-700 pointer-events-none" />
-
-                <div className="relative z-10">
-                  {/* Icon */}
-                  <div className="w-14 h-14 rounded-2xl bg-green/10 border border-green/10 flex items-center justify-center mb-6 group-hover:bg-green/20 group-hover:border-green/30 group-hover:shadow-[0_0_30px_rgba(0,224,90,0.15)] transition-all duration-500">
-                    <Icon size={24} className="text-green" />
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="font-heading text-xl font-bold text-white mb-2 group-hover:text-green transition-colors duration-300">
-                    {item.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                    {item.description}
-                  </p>
-
-                  {/* Divider */}
-                  <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6" />
-
-                  {/* Price */}
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-gray-400 text-sm font-medium">
-                      Starting from
-                    </span>
-                  </div>
-                  <div className="flex items-baseline gap-1 mt-1">
-                    <span className="font-heading text-3xl font-bold gradient-text">
-                      ₹{item.price}
-                    </span>
-                    <span className="text-gray-500 text-sm">/-</span>
-                  </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {pricingItems.map((item, i) => (
+            <motion.div
+              key={item.name}
+              custom={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-60px" }}
+              variants={cardVariants}
+              data-cursor-hover
+              className={`price-card group relative overflow-hidden transition-all duration-500 hover:-translate-y-3 ${item.featured ? "ring-2 ring-[#ff6b35]" : ""}`}
+            >
+              {item.featured && (
+                <div
+                  className="absolute top-3 right-3 px-3 py-1 rounded-full text-[0.7rem] font-[900] text-white z-10"
+                  style={{ background: "linear-gradient(135deg, #ff6b35, #ff9a00)" }}
+                >
+                  ⭐ Popular
                 </div>
-              </motion.div>
-            );
-          })}
+              )}
+              <div className="relative z-10">
+                <span className="text-[2.2rem] mb-3 block" style={{ animation: "iconWiggle 3s ease-in-out infinite" }}>
+                  {item.icon}
+                </span>
+                <h3 className="text-[0.95rem] font-[800] mb-2 group-hover:text-[#ff6b35] transition-colors duration-300" style={{ color: "#1a1a2e" }}>
+                  {item.name}
+                </h3>
+                <p className="text-[#666] text-[0.82rem] leading-relaxed mb-5 font-[600]">{item.desc}</p>
+                <div className="w-full h-px mb-5" style={{ background: "linear-gradient(90deg, transparent, rgba(255,107,53,0.2), transparent)" }} />
+                <div className="text-[0.78rem] text-[#666] font-[700]">Starting from</div>
+                <div className="flex items-baseline gap-1 mt-1">
+                  <span className="text-[1.6rem] font-[900] gradient-text">{item.range}</span>
+                </div>
+                <div className="text-[0.75rem] text-[#999] font-[700] mt-1">{item.unit}</div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
