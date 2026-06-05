@@ -5,7 +5,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 
 const footerPages = [
   { label: "Home", href: "#hero" },
-  { label: "Services", href: "#services" },
+  { label: "Case Studies", href: "/case-studies" },
   { label: "Industries", href: "/industries" },
   { label: "Portfolio", href: "#social" },
   { label: "Blog", href: "/blog" },
@@ -21,6 +21,10 @@ const footerServices = [
   { label: "Meta Ads", href: "#services" },
   { label: "CRM", href: "#crm" },
   { label: "WhatsApp", href: "#services" },
+  { label: "KPI Dashboards", href: "/services/kpi-dashboards" },
+  { label: "HR Systems", href: "/services/hr-systems" },
+  { label: "School Dashboards", href: "/services/school-dashboards" },
+  { label: "Research & Strategy", href: "/services/research-strategy" },
 ];
 
 export default function Footer() {
@@ -136,12 +140,21 @@ export default function Footer() {
           <ul className="space-y-2">
             {footerServices.map((link) => (
               <li key={link.label}>
-                <a
-                  href={link.href}
-                  className="text-[0.81rem] text-[#888] hover:text-[#ff6b35] transition-colors font-[600]"
-                >
-                  {link.label}
-                </a>
+                {link.href.startsWith("/") ? (
+                  <Link
+                    href={link.href}
+                    className="text-[0.81rem] text-[#888] hover:text-[#ff6b35] transition-colors font-[600]"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    className="text-[0.81rem] text-[#888] hover:text-[#ff6b35] transition-colors font-[600]"
+                  >
+                    {link.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>

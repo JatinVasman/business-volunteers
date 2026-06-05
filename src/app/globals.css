@@ -307,22 +307,7 @@ h6 {
   animation: tickerScroll 28s linear infinite;
 }
 
-/* ===== SPLASH / PRELOADER ===== */
-@keyframes splashGrad {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 
-@keyframes splashBounce {
-  0% { transform: translateY(0) rotate(-3deg); }
-  100% { transform: translateY(-14px) rotate(3deg); }
-}
-
-@keyframes dotPulse {
-  0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
-  40% { transform: scale(1.2); opacity: 1; }
-}
 
 /* ===== FLOAT EMOJI ===== */
 @keyframes floatAround {

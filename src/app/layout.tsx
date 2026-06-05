@@ -5,7 +5,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CursorFollower from "@/components/CursorFollower";
-import Preloader from "@/components/Preloader";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { Analytics } from "@vercel/analytics/next";
 
 const nunito = Nunito({
@@ -291,14 +291,13 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-        <Preloader>
-          <SmoothScroll>
-            <CursorFollower />
-            <Navbar />
-            <main className="relative z-[2]">{children}</main>
-            <Footer />
-          </SmoothScroll>
-        </Preloader>
+        <SmoothScroll>
+          <CursorFollower />
+          <Navbar />
+          <main className="relative z-[2]">{children}</main>
+          <Footer />
+          <WhatsAppFloat />
+        </SmoothScroll>
         <Analytics />
       </body>
     </html>

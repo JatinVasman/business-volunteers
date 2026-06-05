@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import IndustryCard from "@/components/ui/IndustryCard";
-import { dedicatedIndustries, genericSectors } from "@/data/industries";
+import { dedicatedIndustries } from "@/data/industries";
 
 export default function IndustriesPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,17 +20,7 @@ export default function IndustriesPage() {
     );
   }, [searchQuery]);
 
-  const filteredGeneric = useMemo(() => {
-    if (!searchQuery.trim()) return genericSectors;
-    const q = searchQuery.toLowerCase();
-    return genericSectors.filter(
-      (sec) =>
-        sec.name.toLowerCase().includes(q) ||
-        sec.description.toLowerCase().includes(q)
-    );
-  }, [searchQuery]);
-
-  const totalResults = filteredDedicated.length + filteredGeneric.length;
+  const totalResults = filteredDedicated.length;
 
   return (
     <section className="relative min-h-screen py-24 sm:py-32 overflow-hidden">
@@ -40,7 +30,7 @@ export default function IndustriesPage() {
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}
-        <SectionHeading title="Industries We Serve" subtitle="47+ Sectors Covered" />
+        <SectionHeading title="Industries We Serve" subtitle="44+ Sectors Covered" />
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -101,7 +91,7 @@ export default function IndustriesPage() {
               className="text-[0.72rem] tracking-[3px] uppercase font-[800] mb-6"
               style={{ color: "#ff6b35" }}
             >
-              ⭐ Featured Industries
+              ⭐ All Industries
             </motion.h3>
             <div className="grid gap-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {filteredDedicated.map((ind, i) => (
@@ -122,38 +112,7 @@ export default function IndustriesPage() {
           </div>
         )}
 
-        {/* Generic Sectors */}
-        {filteredGeneric.length > 0 && (
-          <div>
-            <motion.h3
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="text-[0.72rem] tracking-[3px] uppercase font-[800] mb-6"
-              style={{ color: "#ff6b35" }}
-            >
-              🏭 All Sectors
-            </motion.h3>
-            <div
-              className="grid gap-3 sm:gap-4"
-              style={{
-                gridTemplateColumns: "repeat(auto-fill, minmax(110px, 1fr))",
-              }}
-            >
-              {filteredGeneric.map((sec, i) => (
-                <IndustryCard
-                  key={sec.slug}
-                  name={sec.name}
-                  icon={sec.emoji}
-                  color={sec.color}
-                  slug={sec.slug}
-                  variant="generic"
-                  index={i}
-                />
-              ))}
-            </div>
-          </div>
-        )}
+
 
         {/* No results */}
         {totalResults === 0 && searchQuery && (
